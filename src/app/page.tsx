@@ -1,65 +1,96 @@
-import Image from "next/image";
+"use client";
+
+import { Button, Input, Card, CardBody } from "@heroui/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Home() {
+  const router = useRouter();
+  const [examCode, setExamCode] = useState("");
+
+  const handleJoinExam = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (examCode.trim()) {
+      router.push(`/exam/${examCode.trim()}`);
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-linear-to-br from-indigo-500 via-purple-500 to-pink-500 p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center text-white mb-10"
+      >
+        <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
+          Teachers Portal
+        </h1>
+        <p className="text-xl md:text-2xl text-white/80 max-w-2xl mx-auto">
+          The easiest way to create and take online exams.
+        </p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="w-full max-w-md"
+      >
+        <Card className="shadow-2xl bg-white/90 backdrop-blur-md">
+          <CardBody className="p-8 gap-6">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                Student?
+              </h2>
+              <p className="text-gray-500">Enter your exam code to begin</p>
+            </div>
+
+            <form onSubmit={handleJoinExam} className="flex flex-col gap-4">
+              <Input
+                size="lg"
+                placeholder="Ex: AB12CD"
+                value={examCode}
+                onValueChange={setExamCode}
+                classNames={{
+                  input: "text-center text-xl uppercase font-bold",
+                }}
+              />
+              <Button
+                size="lg"
+                color="primary"
+                className="font-bold text-lg shadow-lg shadow-primary/40"
+                type="submit"
+                isDisabled={!examCode.trim()}
+              >
+                Start Exam
+              </Button>
+            </form>
+
+            <div className="relative my-2">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white/0 px-2 text-gray-400 font-medium bg-white">
+                  Or
+                </span>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <Button
+                variant="light"
+                color="secondary"
+                onPress={() => router.push("/admin")}
+              >
+                Login as Teacher / Admin
+              </Button>
+            </div>
+          </CardBody>
+        </Card>
+      </motion.div>
     </div>
   );
 }

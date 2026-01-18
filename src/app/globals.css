@@ -1,26 +1,108 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@plugin '../hero.ts';
+/* Note: You may need to change the path to fit your project structure */
+@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius: var(--radius);
+
+  --color-brand-indigo: var(--brand-indigo);
+  --color-brand-teal: var(--brand-teal);
+  --color-visual-dark: var(--visual-dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --radius: 0.5rem;
+  --background: oklch(1 0 180);
+  --foreground: oklch(0.103 0.031 321.919);
+  --muted: oklch(0.903 0.017 299.719);
+  --muted-foreground: oklch(0.411 0.01 299.615);
+  --popover: oklch(0.992 0 161.565);
+  --popover-foreground: oklch(0.082 0.025 321.919);
+  --card: oklch(0.992 0 161.565);
+  --card-foreground: oklch(0.082 0.025 321.919);
+  --border: oklch(0.96 0.006 319.446);
+  --input: oklch(0.96 0.006 319.446);
+  --primary: oklch(0.64 0.081 319.463);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.618 0.072 298.036);
+  --secondary-foreground: oklch(0 0 0);
+  --accent: oklch(0.645 0.074 337.892);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.546 0.222 29.274);
+  --destructive-foreground: oklch(1 0 180);
+  --ring: oklch(0.64 0.081 319.463);
+  --chart-1: oklch(0.64 0.081 319.463);
+  --chart-2: oklch(0.618 0.072 298.036);
+  --chart-3: oklch(0.645 0.074 337.892);
+  --chart-4: oklch(0.646 0.066 298.289);
+  --chart-5: oklch(0.638 0.092 319.458);
+
+  --brand-indigo: #6366f1;
+  --brand-teal: #14b8a6;
+  --visual-dark: #0f172a;
+}
+
+.dark {
+  --radius: 0.5rem;
+  --background: oklch(0.088 0.01 320.458);
+  --foreground: oklch(0.992 0.002 319.445);
+  --muted: oklch(0.21 0.025 298.018);
+  --muted-foreground: oklch(0.759 0.009 299.842);
+  --popover: oklch(0.111 0.013 320.458);
+  --popover-foreground: oklch(1 0 180);
+  --card: oklch(0.111 0.013 320.458);
+  --card-foreground: oklch(1 0 180);
+  --border: oklch(0.241 0.022 319.464);
+  --input: oklch(0.241 0.022 319.464);
+  --primary: oklch(0.64 0.081 319.463);
+  --primary-foreground: oklch(0 0 0);
+  --secondary: oklch(0.618 0.072 298.036);
+  --secondary-foreground: oklch(0 0 0);
+  --accent: oklch(0.645 0.074 337.892);
+  --accent-foreground: oklch(0 0 0);
+  --destructive: oklch(0.613 0.249 29.266);
+  --destructive-foreground: oklch(1 0 180);
+  --ring: oklch(0.64 0.081 319.463);
+  --chart-1: oklch(0.64 0.081 319.463);
+  --chart-2: oklch(0.618 0.072 298.036);
+  --chart-3: oklch(0.645 0.074 337.892);
+  --chart-4: oklch(0.646 0.066 298.289);
+  --chart-5: oklch(0.638 0.092 319.458);
+
+  --brand-indigo: #6366f1;
+  --brand-teal: #14b8a6;
+  --visual-dark: #0f172a;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-poppins);
 }
