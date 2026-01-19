@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Input, Card, CardBody } from "@heroui/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/hooks/useRouter";
 import { useState } from "react";
 import { motion } from "framer-motion";
 

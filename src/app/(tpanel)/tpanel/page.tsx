@@ -40,7 +40,7 @@ export default function AdminDashboard() {
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <Button
           as={Link}
-          href="/admin/create"
+          href="/tpanel/create"
           color="primary"
           className="font-bold"
         >
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
                         return (
                           <TableCell>
                             <Link
-                              href={`/admin/exam/${item.code}`}
+                              href={`/tpanel/exam/${item.code}`}
                               className="text-primary hover:underline font-medium"
                             >
                               {item.title}

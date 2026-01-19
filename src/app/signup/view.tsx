@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button, Input } from "@heroui/react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/hooks/useRouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, BookOpen, ShieldAlert } from "lucide-react";
 import { getRandomQuote } from "@/lib/quotes";
@@ -49,7 +49,7 @@ export default function SignUpPageView() {
       return authData;
     },
     onSuccess: () => {
-      router.push("/admin");
+      router.push("/tpanel");
     },
   });
 

@@ -56,7 +56,7 @@ export default function ExamResultsPage() {
             </span>
           </p>
         </div>
-        <Link href="/admin" className="text-primary hover:underline">
+        <Link href="/tpanel" className="text-primary hover:underline">
           Back to Dashboard
         </Link>
       </div>

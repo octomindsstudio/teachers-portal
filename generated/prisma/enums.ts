@@ -11,8 +11,7 @@
 
 export const QuestionType = {
   MULTIPLE_CHOICE: 'MULTIPLE_CHOICE',
-  TRUE_FALSE: 'TRUE_FALSE',
-  SHORT_ANSWER: 'SHORT_ANSWER'
+  TRUE_FALSE: 'TRUE_FALSE'
 } as const
 
 export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]

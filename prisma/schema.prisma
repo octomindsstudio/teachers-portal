@@ -7,14 +7,27 @@ datasource db {
   provider = "postgresql"
 }
 
-// Enums
+// =======================
+// ENUMS
+// =======================
+
 enum QuestionType {
   MULTIPLE_CHOICE
   TRUE_FALSE
-  SHORT_ANSWER
+  FILL_BLANK
+  FILL_BLANK_CLUE
+  NUMERIC
+  MATCHING
 }
 
-// Auth Models (Better-Auth)
+enum EvaluationType {
+  AUTO
+  MANUAL
+}
+
+// =======================
+// AUTH MODELS
+// =======================
 
 model User {
   id            String    @id @default(uuid())
@@ -22,15 +35,14 @@ model User {
   email         String    @unique
   emailVerified Boolean   @default(false)
   image         String?
+  role          String?
+  banned        Boolean?
+  banReason     String?
+  banExpires    DateTime?
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  // role
-  role	String?
-  banned	Boolean?
-  banReason	String?
-  banExpires	DateTime?
-  
   sessions      Session[]
   accounts      Account[]
   exams         Exam[]
@@ -43,25 +55,25 @@ model Session {
   expiresAt DateTime
   ipAddress String?
   userAgent String?
-  
+
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Account {
-  id           String    @id @default(uuid())
+  id           String   @id @default(uuid())
   userId       String
-  accountId    String
   providerId   String
+  accountId    String
+  password     String?
   accessToken  String?
   refreshToken String?
   expiresAt    DateTime?
-  password     String?
-  
-  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Verification {
@@ -72,62 +84,152 @@ model Verification {
   createdAt  DateTime @default(now())
 }
 
-// Application Models
+// =======================
+// EXAM MODELS
+// =======================
 
 model Exam {
   id          String   @id @default(uuid())
   title       String
   description String?
-  code        String   @unique // Unique code for students to join
-  duration    Int // Duration in minutes
+  code        String   @unique
+  duration    Int
   passMark    Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
 
   teacherId   String?
   teacher     User?    @relation(fields: [teacherId], references: [id])
 
-  questions Question[]
-  attempts  Attempt[]   
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  questions   Question[]
+  attempts    Attempt[]
 }
 
 model Question {
-  id       String       @id @default(uuid())
-  text     String
-  type     QuestionType @default(MULTIPLE_CHOICE)
-  points   Int          @default(1)
-  examId   String
-  exam     Exam         @relation(fields: [examId], references: [id], onDelete: Cascade)
-  choices  Choice[]
-  answers  Answer[]
+  id             String         @id @default(uuid())
+  text           String
+  type           QuestionType
+  evaluationType EvaluationType @default(AUTO)
+  points         Int            @default(1)
+
+  examId         String
+  exam           Exam           @relation(fields: [examId], references: [id], onDelete: Cascade)
+
+  mcq            MCQQuestion?
+  trueFalse      TrueFalseQuestion?
+  fillBlank      FillBlankQuestion?
+  numeric        NumericQuestion?
+  matching       MatchingQuestion?
+
+  answers        Answer[]
+}
+
+// =======================
+// QUESTION TYPES
+// =======================
+
+// ---- MULTIPLE CHOICE ----
+
+model MCQQuestion {
+  id          String   @id @default(uuid())
+  questionId  String   @unique
+  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  choices     Choice[]
 }
 
 model Choice {
-  id         String   @id @default(uuid())
-  text       String
-  isCorrect  Boolean  @default(false)
-  questionId String
-  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  id       String @id @default(uuid())
+  text     String
+  isCorrect Boolean @default(false)
+
+  mcqId    String
+  mcq      MCQQuestion @relation(fields: [mcqId], references: [id], onDelete: Cascade)
 }
 
+// ---- TRUE / FALSE ----
+
+model TrueFalseQuestion {
+  id         String   @id @default(uuid())
+  questionId String   @unique
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  correct    Boolean
+}
+
+// ---- FILL IN THE BLANK ----
+
+model FillBlankQuestion {
+  id          String   @id @default(uuid())
+  questionId  String   @unique
+  question    Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  answers     String[]  // accepted answers
+  clue        String?   // null = normal fill blank
+}
+
+// ---- NUMERIC ANSWER ----
+
+model NumericQuestion {
+  id           String   @id @default(uuid())
+  questionId   String   @unique
+  question     Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  correctValue Float
+  tolerance    Float?
+}
+
+// ---- MATCHING ----
+
+model MatchingQuestion {
+  id         String   @id @default(uuid())
+  questionId String   @unique
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  pairs      MatchingPair[]
+}
+
+model MatchingPair {
+  id         String @id @default(uuid())
+  leftText   String
+  rightText  String
+
+  matchingId String
+  matching   MatchingQuestion @relation(fields: [matchingId], references: [id], onDelete: Cascade)
+}
+
+// =======================
+// ATTEMPTS & ANSWERS
+// =======================
+
 model Attempt {
-  id          String    @id @default(uuid())
-  studentName String // Storing name directly since no Auth
+  id          String   @id @default(uuid())
+  studentName String
+  score       Int      @default(0)
+
   examId      String
-  exam        Exam      @relation(fields: [examId], references: [id], onDelete: Cascade)
-  score       Int       @default(0)
-  startedAt   DateTime  @default(now())
+  exam        Exam     @relation(fields: [examId], references: [id], onDelete: Cascade)
+
+  startedAt   DateTime @default(now())
   finishedAt  DateTime?
 
-  answers Answer[]
+  answers     Answer[]
 }
 
 model Answer {
-  id               String   @id @default(uuid())
-  attemptId        String
-  attempt          Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
-  questionId       String
-  question         Question @relation(fields: [questionId], references: [id])
-  selectedChoiceId String? // Nullable if text answer
-  textAnswer       String? // For short answers
+  id          String   @id @default(uuid())
+
+  attemptId   String
+  attempt     Attempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+
+  questionId  String
+  question    Question @relation(fields: [questionId], references: [id])
+
+  // AUTO-GRADABLE ANSWERS
+  selectedChoiceIds String[]
+  booleanAnswer     Boolean?
+  textAnswer        String?
+  numericAnswer     Float?
+  matchingAnswer    Json?
 }

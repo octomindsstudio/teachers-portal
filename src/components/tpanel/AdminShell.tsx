@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Sidebar from "@/components/admin/Sidebar";
+import Sidebar from "@/components/tpanel/Sidebar";
 import { Button } from "@heroui/react";
 import { Menu } from "lucide-react";
 
