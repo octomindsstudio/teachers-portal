@@ -15,7 +15,7 @@ import {
   Chip,
 } from "@heroui/react";
 import { api } from "@/lib/api-client";
-import Link from "next/link";
+import { Link } from "@/components/link";
 
 export default function ExamResultsPage() {
   const params = useParams();

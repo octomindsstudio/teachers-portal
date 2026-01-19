@@ -11,7 +11,19 @@
 
 export const QuestionType = {
   MULTIPLE_CHOICE: 'MULTIPLE_CHOICE',
-  TRUE_FALSE: 'TRUE_FALSE'
+  TRUE_FALSE: 'TRUE_FALSE',
+  FILL_BLANK: 'FILL_BLANK',
+  FILL_BLANK_CLUE: 'FILL_BLANK_CLUE',
+  NUMERIC: 'NUMERIC',
+  MATCHING: 'MATCHING'
 } as const
 
 export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]
+
+
+export const EvaluationType = {
+  AUTO: 'AUTO',
+  MANUAL: 'MANUAL'
+} as const
+
+export type EvaluationType = (typeof EvaluationType)[keyof typeof EvaluationType]

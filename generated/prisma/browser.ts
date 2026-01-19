@@ -48,10 +48,35 @@ export type Exam = Prisma.ExamModel
  */
 export type Question = Prisma.QuestionModel
 /**
+ * Model MCQQuestion
+ * 
+ */
+export type MCQQuestion = Prisma.MCQQuestionModel
+/**
  * Model Choice
  * 
  */
 export type Choice = Prisma.ChoiceModel
+/**
+ * Model TrueFalseQuestion
+ * 
+ */
+export type TrueFalseQuestion = Prisma.TrueFalseQuestionModel
+/**
+ * Model FillBlankQuestion
+ * 
+ */
+export type FillBlankQuestion = Prisma.FillBlankQuestionModel
+/**
+ * Model MatchingQuestion
+ * 
+ */
+export type MatchingQuestion = Prisma.MatchingQuestionModel
+/**
+ * Model MatchingPair
+ * 
+ */
+export type MatchingPair = Prisma.MatchingPairModel
 /**
  * Model Attempt
  * 

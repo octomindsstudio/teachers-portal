@@ -28,21 +28,21 @@ export type ChoiceMinAggregateOutputType = {
   id: string | null
   text: string | null
   isCorrect: boolean | null
-  questionId: string | null
+  mcqId: string | null
 }
 
 export type ChoiceMaxAggregateOutputType = {
   id: string | null
   text: string | null
   isCorrect: boolean | null
-  questionId: string | null
+  mcqId: string | null
 }
 
 export type ChoiceCountAggregateOutputType = {
   id: number
   text: number
   isCorrect: number
-  questionId: number
+  mcqId: number
   _all: number
 }
 
@@ -51,21 +51,21 @@ export type ChoiceMinAggregateInputType = {
   id?: true
   text?: true
   isCorrect?: true
-  questionId?: true
+  mcqId?: true
 }
 
 export type ChoiceMaxAggregateInputType = {
   id?: true
   text?: true
   isCorrect?: true
-  questionId?: true
+  mcqId?: true
 }
 
 export type ChoiceCountAggregateInputType = {
   id?: true
   text?: true
   isCorrect?: true
-  questionId?: true
+  mcqId?: true
   _all?: true
 }
 
@@ -145,7 +145,7 @@ export type ChoiceGroupByOutputType = {
   id: string
   text: string
   isCorrect: boolean
-  questionId: string
+  mcqId: string
   _count: ChoiceCountAggregateOutputType | null
   _min: ChoiceMinAggregateOutputType | null
   _max: ChoiceMaxAggregateOutputType | null
@@ -173,16 +173,16 @@ export type ChoiceWhereInput = {
   id?: Prisma.StringFilter<"Choice"> | string
   text?: Prisma.StringFilter<"Choice"> | string
   isCorrect?: Prisma.BoolFilter<"Choice"> | boolean
-  questionId?: Prisma.StringFilter<"Choice"> | string
-  question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
+  mcqId?: Prisma.StringFilter<"Choice"> | string
+  mcq?: Prisma.XOR<Prisma.MCQQuestionScalarRelationFilter, Prisma.MCQQuestionWhereInput>
 }
 
 export type ChoiceOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   text?: Prisma.SortOrder
   isCorrect?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
-  question?: Prisma.QuestionOrderByWithRelationInput
+  mcqId?: Prisma.SortOrder
+  mcq?: Prisma.MCQQuestionOrderByWithRelationInput
 }
 
 export type ChoiceWhereUniqueInput = Prisma.AtLeast<{
@@ -192,15 +192,15 @@ export type ChoiceWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ChoiceWhereInput | Prisma.ChoiceWhereInput[]
   text?: Prisma.StringFilter<"Choice"> | string
   isCorrect?: Prisma.BoolFilter<"Choice"> | boolean
-  questionId?: Prisma.StringFilter<"Choice"> | string
-  question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
+  mcqId?: Prisma.StringFilter<"Choice"> | string
+  mcq?: Prisma.XOR<Prisma.MCQQuestionScalarRelationFilter, Prisma.MCQQuestionWhereInput>
 }, "id">
 
 export type ChoiceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   text?: Prisma.SortOrder
   isCorrect?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
+  mcqId?: Prisma.SortOrder
   _count?: Prisma.ChoiceCountOrderByAggregateInput
   _max?: Prisma.ChoiceMaxOrderByAggregateInput
   _min?: Prisma.ChoiceMinOrderByAggregateInput
@@ -213,42 +213,42 @@ export type ChoiceScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Choice"> | string
   text?: Prisma.StringWithAggregatesFilter<"Choice"> | string
   isCorrect?: Prisma.BoolWithAggregatesFilter<"Choice"> | boolean
-  questionId?: Prisma.StringWithAggregatesFilter<"Choice"> | string
+  mcqId?: Prisma.StringWithAggregatesFilter<"Choice"> | string
 }
 
 export type ChoiceCreateInput = {
   id?: string
   text: string
   isCorrect?: boolean
-  question: Prisma.QuestionCreateNestedOneWithoutChoicesInput
+  mcq: Prisma.MCQQuestionCreateNestedOneWithoutChoicesInput
 }
 
 export type ChoiceUncheckedCreateInput = {
   id?: string
   text: string
   isCorrect?: boolean
-  questionId: string
+  mcqId: string
 }
 
 export type ChoiceUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  question?: Prisma.QuestionUpdateOneRequiredWithoutChoicesNestedInput
+  mcq?: Prisma.MCQQuestionUpdateOneRequiredWithoutChoicesNestedInput
 }
 
 export type ChoiceUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  mcqId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ChoiceCreateManyInput = {
   id?: string
   text: string
   isCorrect?: boolean
-  questionId: string
+  mcqId: string
 }
 
 export type ChoiceUpdateManyMutationInput = {
@@ -261,7 +261,7 @@ export type ChoiceUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  questionId?: Prisma.StringFieldUpdateOperationsInput | string
+  mcqId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ChoiceListRelationFilter = {
@@ -278,101 +278,101 @@ export type ChoiceCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   text?: Prisma.SortOrder
   isCorrect?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
+  mcqId?: Prisma.SortOrder
 }
 
 export type ChoiceMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   text?: Prisma.SortOrder
   isCorrect?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
+  mcqId?: Prisma.SortOrder
 }
 
 export type ChoiceMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   text?: Prisma.SortOrder
   isCorrect?: Prisma.SortOrder
-  questionId?: Prisma.SortOrder
+  mcqId?: Prisma.SortOrder
 }
 
-export type ChoiceCreateNestedManyWithoutQuestionInput = {
-  create?: Prisma.XOR<Prisma.ChoiceCreateWithoutQuestionInput, Prisma.ChoiceUncheckedCreateWithoutQuestionInput> | Prisma.ChoiceCreateWithoutQuestionInput[] | Prisma.ChoiceUncheckedCreateWithoutQuestionInput[]
-  connectOrCreate?: Prisma.ChoiceCreateOrConnectWithoutQuestionInput | Prisma.ChoiceCreateOrConnectWithoutQuestionInput[]
-  createMany?: Prisma.ChoiceCreateManyQuestionInputEnvelope
+export type ChoiceCreateNestedManyWithoutMcqInput = {
+  create?: Prisma.XOR<Prisma.ChoiceCreateWithoutMcqInput, Prisma.ChoiceUncheckedCreateWithoutMcqInput> | Prisma.ChoiceCreateWithoutMcqInput[] | Prisma.ChoiceUncheckedCreateWithoutMcqInput[]
+  connectOrCreate?: Prisma.ChoiceCreateOrConnectWithoutMcqInput | Prisma.ChoiceCreateOrConnectWithoutMcqInput[]
+  createMany?: Prisma.ChoiceCreateManyMcqInputEnvelope
   connect?: Prisma.ChoiceWhereUniqueInput | Prisma.ChoiceWhereUniqueInput[]
 }
 
-export type ChoiceUncheckedCreateNestedManyWithoutQuestionInput = {
-  create?: Prisma.XOR<Prisma.ChoiceCreateWithoutQuestionInput, Prisma.ChoiceUncheckedCreateWithoutQuestionInput> | Prisma.ChoiceCreateWithoutQuestionInput[] | Prisma.ChoiceUncheckedCreateWithoutQuestionInput[]
-  connectOrCreate?: Prisma.ChoiceCreateOrConnectWithoutQuestionInput | Prisma.ChoiceCreateOrConnectWithoutQuestionInput[]
-  createMany?: Prisma.ChoiceCreateManyQuestionInputEnvelope
+export type ChoiceUncheckedCreateNestedManyWithoutMcqInput = {
+  create?: Prisma.XOR<Prisma.ChoiceCreateWithoutMcqInput, Prisma.ChoiceUncheckedCreateWithoutMcqInput> | Prisma.ChoiceCreateWithoutMcqInput[] | Prisma.ChoiceUncheckedCreateWithoutMcqInput[]
+  connectOrCreate?: Prisma.ChoiceCreateOrConnectWithoutMcqInput | Prisma.ChoiceCreateOrConnectWithoutMcqInput[]
+  createMany?: Prisma.ChoiceCreateManyMcqInputEnvelope
   connect?: Prisma.ChoiceWhereUniqueInput | Prisma.ChoiceWhereUniqueInput[]
 }
 
-export type ChoiceUpdateManyWithoutQuestionNestedInput = {
-  create?: Prisma.XOR<Prisma.ChoiceCreateWithoutQuestionInput, Prisma.ChoiceUncheckedCreateWithoutQuestionInput> | Prisma.ChoiceCreateWithoutQuestionInput[] | Prisma.ChoiceUncheckedCreateWithoutQuestionInput[]
-  connectOrCreate?: Prisma.ChoiceCreateOrConnectWithoutQuestionInput | Prisma.ChoiceCreateOrConnectWithoutQuestionInput[]
-  upsert?: Prisma.ChoiceUpsertWithWhereUniqueWithoutQuestionInput | Prisma.ChoiceUpsertWithWhereUniqueWithoutQuestionInput[]
-  createMany?: Prisma.ChoiceCreateManyQuestionInputEnvelope
+export type ChoiceUpdateManyWithoutMcqNestedInput = {
+  create?: Prisma.XOR<Prisma.ChoiceCreateWithoutMcqInput, Prisma.ChoiceUncheckedCreateWithoutMcqInput> | Prisma.ChoiceCreateWithoutMcqInput[] | Prisma.ChoiceUncheckedCreateWithoutMcqInput[]
+  connectOrCreate?: Prisma.ChoiceCreateOrConnectWithoutMcqInput | Prisma.ChoiceCreateOrConnectWithoutMcqInput[]
+  upsert?: Prisma.ChoiceUpsertWithWhereUniqueWithoutMcqInput | Prisma.ChoiceUpsertWithWhereUniqueWithoutMcqInput[]
+  createMany?: Prisma.ChoiceCreateManyMcqInputEnvelope
   set?: Prisma.ChoiceWhereUniqueInput | Prisma.ChoiceWhereUniqueInput[]
   disconnect?: Prisma.ChoiceWhereUniqueInput | Prisma.ChoiceWhereUniqueInput[]
   delete?: Prisma.ChoiceWhereUniqueInput | Prisma.ChoiceWhereUniqueInput[]
   connect?: Prisma.ChoiceWhereUniqueInput | Prisma.ChoiceWhereUniqueInput[]
-  update?: Prisma.ChoiceUpdateWithWhereUniqueWithoutQuestionInput | Prisma.ChoiceUpdateWithWhereUniqueWithoutQuestionInput[]
-  updateMany?: Prisma.ChoiceUpdateManyWithWhereWithoutQuestionInput | Prisma.ChoiceUpdateManyWithWhereWithoutQuestionInput[]
+  update?: Prisma.ChoiceUpdateWithWhereUniqueWithoutMcqInput | Prisma.ChoiceUpdateWithWhereUniqueWithoutMcqInput[]
+  updateMany?: Prisma.ChoiceUpdateManyWithWhereWithoutMcqInput | Prisma.ChoiceUpdateManyWithWhereWithoutMcqInput[]
   deleteMany?: Prisma.ChoiceScalarWhereInput | Prisma.ChoiceScalarWhereInput[]
 }
 
-export type ChoiceUncheckedUpdateManyWithoutQuestionNestedInput = {
-  create?: Prisma.XOR<Prisma.ChoiceCreateWithoutQuestionInput, Prisma.ChoiceUncheckedCreateWithoutQuestionInput> | Prisma.ChoiceCreateWithoutQuestionInput[] | Prisma.ChoiceUncheckedCreateWithoutQuestionInput[]
-  connectOrCreate?: Prisma.ChoiceCreateOrConnectWithoutQuestionInput | Prisma.ChoiceCreateOrConnectWithoutQuestionInput[]
-  upsert?: Prisma.ChoiceUpsertWithWhereUniqueWithoutQuestionInput | Prisma.ChoiceUpsertWithWhereUniqueWithoutQuestionInput[]
-  createMany?: Prisma.ChoiceCreateManyQuestionInputEnvelope
+export type ChoiceUncheckedUpdateManyWithoutMcqNestedInput = {
+  create?: Prisma.XOR<Prisma.ChoiceCreateWithoutMcqInput, Prisma.ChoiceUncheckedCreateWithoutMcqInput> | Prisma.ChoiceCreateWithoutMcqInput[] | Prisma.ChoiceUncheckedCreateWithoutMcqInput[]
+  connectOrCreate?: Prisma.ChoiceCreateOrConnectWithoutMcqInput | Prisma.ChoiceCreateOrConnectWithoutMcqInput[]
+  upsert?: Prisma.ChoiceUpsertWithWhereUniqueWithoutMcqInput | Prisma.ChoiceUpsertWithWhereUniqueWithoutMcqInput[]
+  createMany?: Prisma.ChoiceCreateManyMcqInputEnvelope
   set?: Prisma.ChoiceWhereUniqueInput | Prisma.ChoiceWhereUniqueInput[]
   disconnect?: Prisma.ChoiceWhereUniqueInput | Prisma.ChoiceWhereUniqueInput[]
   delete?: Prisma.ChoiceWhereUniqueInput | Prisma.ChoiceWhereUniqueInput[]
   connect?: Prisma.ChoiceWhereUniqueInput | Prisma.ChoiceWhereUniqueInput[]
-  update?: Prisma.ChoiceUpdateWithWhereUniqueWithoutQuestionInput | Prisma.ChoiceUpdateWithWhereUniqueWithoutQuestionInput[]
-  updateMany?: Prisma.ChoiceUpdateManyWithWhereWithoutQuestionInput | Prisma.ChoiceUpdateManyWithWhereWithoutQuestionInput[]
+  update?: Prisma.ChoiceUpdateWithWhereUniqueWithoutMcqInput | Prisma.ChoiceUpdateWithWhereUniqueWithoutMcqInput[]
+  updateMany?: Prisma.ChoiceUpdateManyWithWhereWithoutMcqInput | Prisma.ChoiceUpdateManyWithWhereWithoutMcqInput[]
   deleteMany?: Prisma.ChoiceScalarWhereInput | Prisma.ChoiceScalarWhereInput[]
 }
 
-export type ChoiceCreateWithoutQuestionInput = {
+export type ChoiceCreateWithoutMcqInput = {
   id?: string
   text: string
   isCorrect?: boolean
 }
 
-export type ChoiceUncheckedCreateWithoutQuestionInput = {
+export type ChoiceUncheckedCreateWithoutMcqInput = {
   id?: string
   text: string
   isCorrect?: boolean
 }
 
-export type ChoiceCreateOrConnectWithoutQuestionInput = {
+export type ChoiceCreateOrConnectWithoutMcqInput = {
   where: Prisma.ChoiceWhereUniqueInput
-  create: Prisma.XOR<Prisma.ChoiceCreateWithoutQuestionInput, Prisma.ChoiceUncheckedCreateWithoutQuestionInput>
+  create: Prisma.XOR<Prisma.ChoiceCreateWithoutMcqInput, Prisma.ChoiceUncheckedCreateWithoutMcqInput>
 }
 
-export type ChoiceCreateManyQuestionInputEnvelope = {
-  data: Prisma.ChoiceCreateManyQuestionInput | Prisma.ChoiceCreateManyQuestionInput[]
+export type ChoiceCreateManyMcqInputEnvelope = {
+  data: Prisma.ChoiceCreateManyMcqInput | Prisma.ChoiceCreateManyMcqInput[]
   skipDuplicates?: boolean
 }
 
-export type ChoiceUpsertWithWhereUniqueWithoutQuestionInput = {
+export type ChoiceUpsertWithWhereUniqueWithoutMcqInput = {
   where: Prisma.ChoiceWhereUniqueInput
-  update: Prisma.XOR<Prisma.ChoiceUpdateWithoutQuestionInput, Prisma.ChoiceUncheckedUpdateWithoutQuestionInput>
-  create: Prisma.XOR<Prisma.ChoiceCreateWithoutQuestionInput, Prisma.ChoiceUncheckedCreateWithoutQuestionInput>
+  update: Prisma.XOR<Prisma.ChoiceUpdateWithoutMcqInput, Prisma.ChoiceUncheckedUpdateWithoutMcqInput>
+  create: Prisma.XOR<Prisma.ChoiceCreateWithoutMcqInput, Prisma.ChoiceUncheckedCreateWithoutMcqInput>
 }
 
-export type ChoiceUpdateWithWhereUniqueWithoutQuestionInput = {
+export type ChoiceUpdateWithWhereUniqueWithoutMcqInput = {
   where: Prisma.ChoiceWhereUniqueInput
-  data: Prisma.XOR<Prisma.ChoiceUpdateWithoutQuestionInput, Prisma.ChoiceUncheckedUpdateWithoutQuestionInput>
+  data: Prisma.XOR<Prisma.ChoiceUpdateWithoutMcqInput, Prisma.ChoiceUncheckedUpdateWithoutMcqInput>
 }
 
-export type ChoiceUpdateManyWithWhereWithoutQuestionInput = {
+export type ChoiceUpdateManyWithWhereWithoutMcqInput = {
   where: Prisma.ChoiceScalarWhereInput
-  data: Prisma.XOR<Prisma.ChoiceUpdateManyMutationInput, Prisma.ChoiceUncheckedUpdateManyWithoutQuestionInput>
+  data: Prisma.XOR<Prisma.ChoiceUpdateManyMutationInput, Prisma.ChoiceUncheckedUpdateManyWithoutMcqInput>
 }
 
 export type ChoiceScalarWhereInput = {
@@ -382,28 +382,28 @@ export type ChoiceScalarWhereInput = {
   id?: Prisma.StringFilter<"Choice"> | string
   text?: Prisma.StringFilter<"Choice"> | string
   isCorrect?: Prisma.BoolFilter<"Choice"> | boolean
-  questionId?: Prisma.StringFilter<"Choice"> | string
+  mcqId?: Prisma.StringFilter<"Choice"> | string
 }
 
-export type ChoiceCreateManyQuestionInput = {
+export type ChoiceCreateManyMcqInput = {
   id?: string
   text: string
   isCorrect?: boolean
 }
 
-export type ChoiceUpdateWithoutQuestionInput = {
+export type ChoiceUpdateWithoutMcqInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
-export type ChoiceUncheckedUpdateWithoutQuestionInput = {
+export type ChoiceUncheckedUpdateWithoutMcqInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
-export type ChoiceUncheckedUpdateManyWithoutQuestionInput = {
+export type ChoiceUncheckedUpdateManyWithoutMcqInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
   isCorrect?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -415,54 +415,54 @@ export type ChoiceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   text?: boolean
   isCorrect?: boolean
-  questionId?: boolean
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  mcqId?: boolean
+  mcq?: boolean | Prisma.MCQQuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["choice"]>
 
 export type ChoiceSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   text?: boolean
   isCorrect?: boolean
-  questionId?: boolean
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  mcqId?: boolean
+  mcq?: boolean | Prisma.MCQQuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["choice"]>
 
 export type ChoiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   text?: boolean
   isCorrect?: boolean
-  questionId?: boolean
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  mcqId?: boolean
+  mcq?: boolean | Prisma.MCQQuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["choice"]>
 
 export type ChoiceSelectScalar = {
   id?: boolean
   text?: boolean
   isCorrect?: boolean
-  questionId?: boolean
+  mcqId?: boolean
 }
 
-export type ChoiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "text" | "isCorrect" | "questionId", ExtArgs["result"]["choice"]>
+export type ChoiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "text" | "isCorrect" | "mcqId", ExtArgs["result"]["choice"]>
 export type ChoiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  mcq?: boolean | Prisma.MCQQuestionDefaultArgs<ExtArgs>
 }
 export type ChoiceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  mcq?: boolean | Prisma.MCQQuestionDefaultArgs<ExtArgs>
 }
 export type ChoiceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
+  mcq?: boolean | Prisma.MCQQuestionDefaultArgs<ExtArgs>
 }
 
 export type $ChoicePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Choice"
   objects: {
-    question: Prisma.$QuestionPayload<ExtArgs>
+    mcq: Prisma.$MCQQuestionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     text: string
     isCorrect: boolean
-    questionId: string
+    mcqId: string
   }, ExtArgs["result"]["choice"]>
   composites: {}
 }
@@ -857,7 +857,7 @@ readonly fields: ChoiceFieldRefs;
  */
 export interface Prisma__ChoiceClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  question<T extends Prisma.QuestionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.QuestionDefaultArgs<ExtArgs>>): Prisma.Prisma__QuestionClient<runtime.Types.Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  mcq<T extends Prisma.MCQQuestionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.MCQQuestionDefaultArgs<ExtArgs>>): Prisma.Prisma__MCQQuestionClient<runtime.Types.Result.GetResult<Prisma.$MCQQuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -890,7 +890,7 @@ export interface ChoiceFieldRefs {
   readonly id: Prisma.FieldRef<"Choice", 'String'>
   readonly text: Prisma.FieldRef<"Choice", 'String'>
   readonly isCorrect: Prisma.FieldRef<"Choice", 'Boolean'>
-  readonly questionId: Prisma.FieldRef<"Choice", 'String'>
+  readonly mcqId: Prisma.FieldRef<"Choice", 'String'>
 }
     
 

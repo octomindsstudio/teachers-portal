@@ -50,7 +50,24 @@ export default function CreateExamPage() {
 
   const createExam = useMutation({
     mutationFn: async (data: FormValues) => {
-      const response = await api.exams.post(data);
+      // Sanitize data before sending
+      const sanitizedData = {
+        ...data,
+        questions: data.questions.map(q => {
+          if (q.type === 'FILL_BLANK' || q.type === 'FILL_BLANK_CLUE') {
+            // Remove text inside brackets for the DB payload as requested
+            // [sami] -> []
+            return {
+              ...q,
+              text: q.text.replace(/\[(.*?)\]/g, "[]")
+            };
+          }
+          return q;
+        })
+      };
+      
+      console.log("Submitting:", sanitizedData);
+      const response = await api.exams.post(sanitizedData);
       if (response.error) throw response.error;
       return response.data;
     },
@@ -60,7 +77,7 @@ export default function CreateExamPage() {
       }
     },
     onError: (err) => {
-      alert("Failed to create exam: " + err);
+      console.log("Failed to create exam: " + err);
     },
   });
 

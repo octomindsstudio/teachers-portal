@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button, Input } from "@heroui/react";
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "@/hooks/useRouter";
 import { motion, AnimatePresence } from "framer-motion";

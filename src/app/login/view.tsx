@@ -2,11 +2,11 @@
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button, Input } from "@heroui/react";
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "@/hooks/useRouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, BookOpen,ShieldAlert } from "lucide-react";
+import { ArrowRight, BookOpen, ShieldAlert } from "lucide-react";
 import { getRandomQuote } from "@/lib/quotes";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -137,10 +137,7 @@ export default function LoginPageView() {
                 className="p-4 rounded-xl bg-rose-50 border border-rose-100 flex items-start gap-3"
               >
                 <div className="p-1 bg-rose-100 rounded-full mt-0.5">
-                  <ShieldAlert
-                    size={16}
-                    className="text-rose-600"
-                  />
+                  <ShieldAlert size={16} className="text-rose-600" />
                 </div>
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-rose-700">
@@ -187,12 +184,20 @@ export default function LoginPageView() {
           </div>
         </div>
 
-         <div
+        <div
           className="absolute bottom-8 left-0 w-full text-center text-xs font-medium text-slate-400"
           suppressHydrationWarning
         >
-          &copy; {new Date().getFullYear()} <a href={DEVELOPED_BY_URL} target="_blank" rel="noopener noreferrer" className="font-bold">{DEVELOPED_BY}</a>. All rights
-          reserved.
+          &copy; {new Date().getFullYear()}{" "}
+          <a
+            href={DEVELOPED_BY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold"
+          >
+            {DEVELOPED_BY}
+          </a>
+          . All rights reserved.
         </div>
       </motion.div>
 

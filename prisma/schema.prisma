@@ -119,7 +119,6 @@ model Question {
   mcq            MCQQuestion?
   trueFalse      TrueFalseQuestion?
   fillBlank      FillBlankQuestion?
-  numeric        NumericQuestion?
   matching       MatchingQuestion?
 
   answers        Answer[]
@@ -167,17 +166,6 @@ model FillBlankQuestion {
 
   answers     String[]  // accepted answers
   clue        String?   // null = normal fill blank
-}
-
-// ---- NUMERIC ANSWER ----
-
-model NumericQuestion {
-  id           String   @id @default(uuid())
-  questionId   String   @unique
-  question     Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
-
-  correctValue Float
-  tolerance    Float?
 }
 
 // ---- MATCHING ----
@@ -230,6 +218,5 @@ model Answer {
   selectedChoiceIds String[]
   booleanAnswer     Boolean?
   textAnswer        String?
-  numericAnswer     Float?
   matchingAnswer    Json?
 }

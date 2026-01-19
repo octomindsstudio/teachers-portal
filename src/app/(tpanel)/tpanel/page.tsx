@@ -14,7 +14,7 @@ import {
   TableCell,
   getKeyValue,
 } from "@heroui/react";
-import Link from "next/link";
+import { Link } from "@/components/link";
 import { api } from "@/lib/api-client";
 
 export default function AdminDashboard() {

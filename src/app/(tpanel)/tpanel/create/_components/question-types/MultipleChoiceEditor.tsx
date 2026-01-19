@@ -3,8 +3,8 @@
 import {
   Control,
   UseFormRegister,
-  FieldArrayWithId,
   Controller,
+  useFieldArray,
 } from "react-hook-form";
 import { Button, Input, Checkbox, cn } from "@heroui/react";
 import { Plus, Trash2 } from "lucide-react";
@@ -12,73 +12,82 @@ import { FormValues } from "../../schema";
 
 interface MultipleChoiceEditorProps {
   index: number;
-  fields: FieldArrayWithId<FormValues, `questions.${number}.choices`, "id">[];
   register: UseFormRegister<FormValues>;
   control: Control<FormValues>;
-  remove: (index: number) => void;
-  append: (value: { text: string; isCorrect: boolean }) => void;
 }
 
 export function MultipleChoiceEditor({
   index,
-  fields,
   register,
   control,
-  remove,
-  append,
 }: MultipleChoiceEditorProps) {
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: `questions.${index}.choices` as any,
+  });
+
   return (
-    <>
-      {fields.map((choice, cIndex) => (
-        <div key={choice.id} className="flex gap-3 items-center group/choice">
-          <Controller
-            control={control}
-            name={`questions.${index}.choices.${cIndex}.isCorrect`}
-            render={({ field }) => (
-              <Checkbox
-                isSelected={field.value}
-                onValueChange={field.onChange}
-                color="success"
-                size="sm"
-                className={cn(
-                  field.value ? "opacity-100" : "opacity-50 hover:opacity-100",
-                )}
-              />
-            )}
-          />
-          <Input
-            {...register(`questions.${index}.choices.${cIndex}.text`)}
-            placeholder={`Option ${cIndex + 1}`}
-            size="sm"
-            variant="bordered"
-            className="flex-1"
-            classNames={{
-              inputWrapper:
-                "bg-white border-default-200 shadow-sm h-9 min-h-0 group-focus-within/choice:border-primary",
-            }}
-          />
-          <Button
-            size="sm"
-            isIconOnly
-            variant="light"
-            className="text-default-300 hover:text-danger opacity-0 group-hover/choice:opacity-100 transition-opacity w-8 h-8 min-w-0"
-            onPress={() => remove(cIndex)}
+    <div className="space-y-3">
+      <div className="space-y-2">
+        {fields.map((choice, cIndex) => (
+          <div
+            key={choice.id}
+            className="group/choice flex gap-3 items-center p-2 rounded-xl border border-default-200 bg-white hover:border-primary/50 transition-colors shadow-sm"
           >
-            <Trash2 size={14} />
-          </Button>
-        </div>
-      ))}
+            <Controller
+              control={control}
+              name={`questions.${index}.choices.${cIndex}.isCorrect` as any}
+              render={({ field }) => (
+                <Checkbox
+                  isSelected={field.value}
+                  onValueChange={field.onChange}
+                  color="success"
+                  size="md"
+                  radius="full"
+                  classNames={{
+                    wrapper:
+                      "before:border-default-400 group-hover/choice:before:border-success",
+                  }}
+                />
+              )}
+            />
+
+            <Input
+              {...register(`questions.${index}.choices.${cIndex}.text` as any)}
+              placeholder={`Option ${cIndex + 1}`}
+              size="sm"
+              variant="flat"
+              classNames={{
+                inputWrapper:
+                  "bg-transparent! shadow-none hover:bg-transparent! px-0 group-focus-within/choice:!bg-transparent",
+                input: "text-small font-medium text-default-700",
+              }}
+              className="flex-1"
+            />
+
+            <Button
+              size="sm"
+              isIconOnly
+              variant="light"
+              color="danger"
+              className="opacity-0 group-hover/choice:opacity-100 transition-opacity"
+              onPress={() => remove(cIndex)}
+            >
+              <Trash2 size={16} />
+            </Button>
+          </div>
+        ))}
+      </div>
 
       <Button
-        size="sm"
-        variant="light"
+        variant="bordered"
         color="primary"
-        startContent={<Plus size={14} />}
+        className="w-full border-2 border-dashed h-10 font-medium text-primary/80 hover:text-primary hover:bg-primary/5 hover:border-primary"
+        startContent={<Plus size={18} />}
         onPress={() => append({ text: "", isCorrect: false })}
-        className="ml-7 h-8 text-xs font-medium"
       >
         Add Option
       </Button>
-    </>
+    </div>
   );
 }

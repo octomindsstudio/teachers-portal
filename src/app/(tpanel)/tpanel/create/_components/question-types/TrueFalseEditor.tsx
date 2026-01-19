@@ -12,59 +12,49 @@ import { FormValues } from "../../schema";
 
 interface TrueFalseEditorProps {
   index: number;
-  fields: FieldArrayWithId<FormValues, `questions.${number}.choices`, "id">[];
-  register: UseFormRegister<FormValues>;
   control: Control<FormValues>;
-  setValue: UseFormSetValue<FormValues>;
 }
 
-export function TrueFalseEditor({
-  index,
-  fields,
-  register,
-  control,
-  setValue,
-}: TrueFalseEditorProps) {
+export function TrueFalseEditor({ index, control }: TrueFalseEditorProps) {
   return (
-    <>
-      {fields.map((choice, cIndex) => (
-        <div key={choice.id} className="flex gap-3 items-center group/choice">
-          <Controller
-            control={control}
-            name={`questions.${index}.choices.${cIndex}.isCorrect`}
-            render={({ field }) => (
-              <Checkbox
-                isSelected={field.value}
-                onValueChange={(val) => {
-                  if (val) {
-                    const otherIndex = cIndex === 0 ? 1 : 0;
-                    setValue(
-                      `questions.${index}.choices.${otherIndex}.isCorrect`,
-                      false,
-                    );
-                  }
-                  field.onChange(val);
-                }}
-                color="success"
-                size="sm"
-              />
-            )}
-          />
-          <Input
-            {...register(`questions.${index}.choices.${cIndex}.text`)}
-            placeholder={`Option ${cIndex + 1}`}
-            size="sm"
-            variant="bordered"
-            className="flex-1"
-            isReadOnly
-            classNames={{
-              inputWrapper:
-                "h-9 min-h-0 bg-white border-transparent shadow-none bg-transparent pl-0",
-              input: "font-semibold text-default-600",
-            }}
-          />
-        </div>
-      ))}
-    </>
+    <div className="flex gap-4 items-center">
+      <span className="text-sm font-medium text-default-500 whitespace-nowrap min-w-24">
+        Correct Answer:
+      </span>
+      <Controller
+        control={control}
+        name={`questions.${index}.correctAnswer` as any}
+        render={({ field }) => (
+          <div className="flex p-1 bg-default-100 rounded-lg w-full max-w-50 relative">
+            <div className="relative z-10 grid grid-cols-2 text-center w-full">
+              <button
+                type="button"
+                onClick={() => field.onChange(true)}
+                className={cn(
+                  "text-sm font-medium py-1.5 px-3 rounded-md transition-all duration-200",
+                  field.value === true
+                    ? "bg-white text-success shadow-sm"
+                    : "text-default-500 hover:text-default-700",
+                )}
+              >
+                True
+              </button>
+              <button
+                type="button"
+                onClick={() => field.onChange(false)}
+                className={cn(
+                  "text-sm font-medium py-1.5 px-3 rounded-md transition-all duration-200",
+                  field.value === false
+                    ? "bg-white text-danger shadow-sm"
+                    : "text-default-500 hover:text-default-700",
+                )}
+              >
+                False
+              </button>
+            </div>
+          </div>
+        )}
+      />
+    </div>
   );
 }

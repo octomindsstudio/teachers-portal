@@ -28,11 +28,13 @@ import { useAuthStore } from "@/store/auth-store";
 
 const NAV_ITEMS = [
   {
+    id: "dashboard",
     label: "Dashboard",
     href: "/tpanel",
     icon: LayoutDashboard,
   },
   {
+    id: "create-exam",
     label: "Create Exam",
     href: "/tpanel/create",
     icon: PlusCircle,

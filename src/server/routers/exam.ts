@@ -9,7 +9,6 @@ export const examRoutes = new Elysia({ prefix: "/exams" })
         const { title, description, duration, questions } = body;
 
         // Generate a simple 6-character code
-        // In real app, check for collision
         const code = Math.random().toString(36).substring(2, 8).toUpperCase();
 
         const exam = await prisma.exam.create({
@@ -19,17 +18,67 @@ export const examRoutes = new Elysia({ prefix: "/exams" })
             duration,
             code,
             questions: {
-              create: questions.map((q) => ({
-                text: q.text,
-                type: q.type,
-                points: q.points,
-                choices: {
-                  create: q.choices.map((c) => ({
-                    text: c.text,
-                    isCorrect: c.isCorrect,
-                  })),
-                },
-              })),
+              create: questions.map((q) => {
+                const base = {
+                  text: q.text,
+                  type: q.type,
+                  points: q.points,
+                };
+
+                if (q.type === "MULTIPLE_CHOICE") {
+                  return {
+                    ...base,
+                    mcq: {
+                      create: {
+                        choices: {
+                          create: q.choices.map((c) => ({
+                            text: c.text,
+                            isCorrect: c.isCorrect,
+                          })),
+                        },
+                      },
+                    },
+                  };
+                } else if (q.type === "TRUE_FALSE") {
+                  return {
+                    ...base,
+                    trueFalse: {
+                      create: {
+                        correct: q.correctAnswer,
+                      },
+                    },
+                  };
+                } else if (
+                  q.type === "FILL_BLANK" ||
+                  q.type === "FILL_BLANK_CLUE"
+                ) {
+                  return {
+                    ...base,
+                    fillBlank: {
+                      create: {
+                        answers: q.answers,
+                        clue: q.type === "FILL_BLANK_CLUE" ? q.clue : undefined,
+                      },
+                    },
+                  };
+                } else if (q.type === "MATCHING") {
+                  return {
+                    ...base,
+                    matching: {
+                      create: {
+                        pairs: {
+                          create: q.pairs.map((p) => ({
+                            leftText: p.left,
+                            rightText: p.right,
+                          })),
+                        },
+                      },
+                    },
+                  };
+                }
+
+                return base; // Fallback or throw error
+              }),
             },
           },
           include: {
@@ -49,21 +98,54 @@ export const examRoutes = new Elysia({ prefix: "/exams" })
         description: t.Optional(t.String()),
         duration: t.Numeric({ min: 1 }),
         questions: t.Array(
-          t.Object({
-            text: t.String(),
-            type: t.Enum({
-              MULTIPLE_CHOICE: "MULTIPLE_CHOICE",
-              TRUE_FALSE: "TRUE_FALSE",
-              SHORT_ANSWER: "SHORT_ANSWER",
+          t.Union([
+            // Multiple Choice
+            t.Object({
+              text: t.String(),
+              type: t.Literal("MULTIPLE_CHOICE"),
+              points: t.Numeric(),
+              choices: t.Array(
+                t.Object({
+                  text: t.String(),
+                  isCorrect: t.Boolean(),
+                }),
+              ),
             }),
-            points: t.Numeric({ default: 1 }),
-            choices: t.Array(
-              t.Object({
-                text: t.String(),
-                isCorrect: t.Boolean(),
-              }),
-            ),
-          }),
+            // True False
+            t.Object({
+              text: t.String(),
+              type: t.Literal("TRUE_FALSE"),
+              points: t.Numeric(),
+              correctAnswer: t.Boolean(),
+            }),
+            // Fill Blank
+            t.Object({
+              text: t.String(),
+              type: t.Literal("FILL_BLANK"),
+              points: t.Numeric(),
+              answers: t.Array(t.String()),
+            }),
+            // Fill Blank Clue
+            t.Object({
+              text: t.String(),
+              type: t.Literal("FILL_BLANK_CLUE"),
+              points: t.Numeric(),
+              answers: t.Array(t.String()),
+              clue: t.String(),
+            }),
+            // Matching
+            t.Object({
+              text: t.String(),
+              type: t.Literal("MATCHING"),
+              points: t.Numeric(),
+              pairs: t.Array(
+                t.Object({
+                  left: t.String(),
+                  right: t.String(),
+                }),
+              ),
+            }),
+          ]),
         ),
       }),
     },
