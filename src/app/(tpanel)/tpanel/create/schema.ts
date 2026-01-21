@@ -16,6 +16,15 @@ export const questionSchema = z.discriminatedUnion("type", [
     ),
   }),
   baseQuestionSchema.extend({
+    type: z.literal("MULTI_SELECT"),
+    choices: z.array(
+      z.object({
+        text: z.string(),
+        isCorrect: z.boolean(),
+      }),
+    ),
+  }),
+  baseQuestionSchema.extend({
     type: z.literal("TRUE_FALSE"),
     correctAnswer: z.boolean(),
   }),
@@ -45,6 +54,7 @@ export const formSchema = z.object({
   title: z.string().min(3, "Title is too short"),
   description: z.string().optional(),
   duration: z.number().min(1),
+  shuffleQuestions: z.boolean().default(false),
   questions: z.array(questionSchema).min(1, "Add at least one question"),
 });
 

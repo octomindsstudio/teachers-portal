@@ -43,6 +43,7 @@ export type ExamMinAggregateOutputType = {
   code: string | null
   duration: number | null
   passMark: number | null
+  shuffleQuestions: boolean | null
   teacherId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -55,6 +56,7 @@ export type ExamMaxAggregateOutputType = {
   code: string | null
   duration: number | null
   passMark: number | null
+  shuffleQuestions: boolean | null
   teacherId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -67,6 +69,7 @@ export type ExamCountAggregateOutputType = {
   code: number
   duration: number
   passMark: number
+  shuffleQuestions: number
   teacherId: number
   createdAt: number
   updatedAt: number
@@ -91,6 +94,7 @@ export type ExamMinAggregateInputType = {
   code?: true
   duration?: true
   passMark?: true
+  shuffleQuestions?: true
   teacherId?: true
   createdAt?: true
   updatedAt?: true
@@ -103,6 +107,7 @@ export type ExamMaxAggregateInputType = {
   code?: true
   duration?: true
   passMark?: true
+  shuffleQuestions?: true
   teacherId?: true
   createdAt?: true
   updatedAt?: true
@@ -115,6 +120,7 @@ export type ExamCountAggregateInputType = {
   code?: true
   duration?: true
   passMark?: true
+  shuffleQuestions?: true
   teacherId?: true
   createdAt?: true
   updatedAt?: true
@@ -214,6 +220,7 @@ export type ExamGroupByOutputType = {
   code: string
   duration: number
   passMark: number
+  shuffleQuestions: boolean
   teacherId: string | null
   createdAt: Date
   updatedAt: Date
@@ -249,6 +256,7 @@ export type ExamWhereInput = {
   code?: Prisma.StringFilter<"Exam"> | string
   duration?: Prisma.IntFilter<"Exam"> | number
   passMark?: Prisma.IntFilter<"Exam"> | number
+  shuffleQuestions?: Prisma.BoolFilter<"Exam"> | boolean
   teacherId?: Prisma.StringNullableFilter<"Exam"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Exam"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Exam"> | Date | string
@@ -264,6 +272,7 @@ export type ExamOrderByWithRelationInput = {
   code?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   passMark?: Prisma.SortOrder
+  shuffleQuestions?: Prisma.SortOrder
   teacherId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -282,6 +291,7 @@ export type ExamWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"Exam"> | string | null
   duration?: Prisma.IntFilter<"Exam"> | number
   passMark?: Prisma.IntFilter<"Exam"> | number
+  shuffleQuestions?: Prisma.BoolFilter<"Exam"> | boolean
   teacherId?: Prisma.StringNullableFilter<"Exam"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Exam"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Exam"> | Date | string
@@ -297,6 +307,7 @@ export type ExamOrderByWithAggregationInput = {
   code?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   passMark?: Prisma.SortOrder
+  shuffleQuestions?: Prisma.SortOrder
   teacherId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -317,6 +328,7 @@ export type ExamScalarWhereWithAggregatesInput = {
   code?: Prisma.StringWithAggregatesFilter<"Exam"> | string
   duration?: Prisma.IntWithAggregatesFilter<"Exam"> | number
   passMark?: Prisma.IntWithAggregatesFilter<"Exam"> | number
+  shuffleQuestions?: Prisma.BoolWithAggregatesFilter<"Exam"> | boolean
   teacherId?: Prisma.StringNullableWithAggregatesFilter<"Exam"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Exam"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Exam"> | Date | string
@@ -329,6 +341,7 @@ export type ExamCreateInput = {
   code: string
   duration: number
   passMark?: number
+  shuffleQuestions?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   teacher?: Prisma.UserCreateNestedOneWithoutExamsInput
@@ -343,6 +356,7 @@ export type ExamUncheckedCreateInput = {
   code: string
   duration: number
   passMark?: number
+  shuffleQuestions?: boolean
   teacherId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -357,6 +371,7 @@ export type ExamUpdateInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   passMark?: Prisma.IntFieldUpdateOperationsInput | number
+  shuffleQuestions?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   teacher?: Prisma.UserUpdateOneWithoutExamsNestedInput
@@ -371,6 +386,7 @@ export type ExamUncheckedUpdateInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   passMark?: Prisma.IntFieldUpdateOperationsInput | number
+  shuffleQuestions?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teacherId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -385,6 +401,7 @@ export type ExamCreateManyInput = {
   code: string
   duration: number
   passMark?: number
+  shuffleQuestions?: boolean
   teacherId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -397,6 +414,7 @@ export type ExamUpdateManyMutationInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   passMark?: Prisma.IntFieldUpdateOperationsInput | number
+  shuffleQuestions?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -408,6 +426,7 @@ export type ExamUncheckedUpdateManyInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   passMark?: Prisma.IntFieldUpdateOperationsInput | number
+  shuffleQuestions?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teacherId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -430,6 +449,7 @@ export type ExamCountOrderByAggregateInput = {
   code?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   passMark?: Prisma.SortOrder
+  shuffleQuestions?: Prisma.SortOrder
   teacherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -447,6 +467,7 @@ export type ExamMaxOrderByAggregateInput = {
   code?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   passMark?: Prisma.SortOrder
+  shuffleQuestions?: Prisma.SortOrder
   teacherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -459,6 +480,7 @@ export type ExamMinOrderByAggregateInput = {
   code?: Prisma.SortOrder
   duration?: Prisma.SortOrder
   passMark?: Prisma.SortOrder
+  shuffleQuestions?: Prisma.SortOrder
   teacherId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -559,6 +581,7 @@ export type ExamCreateWithoutTeacherInput = {
   code: string
   duration: number
   passMark?: number
+  shuffleQuestions?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   questions?: Prisma.QuestionCreateNestedManyWithoutExamInput
@@ -572,6 +595,7 @@ export type ExamUncheckedCreateWithoutTeacherInput = {
   code: string
   duration: number
   passMark?: number
+  shuffleQuestions?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   questions?: Prisma.QuestionUncheckedCreateNestedManyWithoutExamInput
@@ -614,6 +638,7 @@ export type ExamScalarWhereInput = {
   code?: Prisma.StringFilter<"Exam"> | string
   duration?: Prisma.IntFilter<"Exam"> | number
   passMark?: Prisma.IntFilter<"Exam"> | number
+  shuffleQuestions?: Prisma.BoolFilter<"Exam"> | boolean
   teacherId?: Prisma.StringNullableFilter<"Exam"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Exam"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Exam"> | Date | string
@@ -626,6 +651,7 @@ export type ExamCreateWithoutQuestionsInput = {
   code: string
   duration: number
   passMark?: number
+  shuffleQuestions?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   teacher?: Prisma.UserCreateNestedOneWithoutExamsInput
@@ -639,6 +665,7 @@ export type ExamUncheckedCreateWithoutQuestionsInput = {
   code: string
   duration: number
   passMark?: number
+  shuffleQuestions?: boolean
   teacherId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -668,6 +695,7 @@ export type ExamUpdateWithoutQuestionsInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   passMark?: Prisma.IntFieldUpdateOperationsInput | number
+  shuffleQuestions?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   teacher?: Prisma.UserUpdateOneWithoutExamsNestedInput
@@ -681,6 +709,7 @@ export type ExamUncheckedUpdateWithoutQuestionsInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   passMark?: Prisma.IntFieldUpdateOperationsInput | number
+  shuffleQuestions?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teacherId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -694,6 +723,7 @@ export type ExamCreateWithoutAttemptsInput = {
   code: string
   duration: number
   passMark?: number
+  shuffleQuestions?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   teacher?: Prisma.UserCreateNestedOneWithoutExamsInput
@@ -707,6 +737,7 @@ export type ExamUncheckedCreateWithoutAttemptsInput = {
   code: string
   duration: number
   passMark?: number
+  shuffleQuestions?: boolean
   teacherId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -736,6 +767,7 @@ export type ExamUpdateWithoutAttemptsInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   passMark?: Prisma.IntFieldUpdateOperationsInput | number
+  shuffleQuestions?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   teacher?: Prisma.UserUpdateOneWithoutExamsNestedInput
@@ -749,6 +781,7 @@ export type ExamUncheckedUpdateWithoutAttemptsInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   passMark?: Prisma.IntFieldUpdateOperationsInput | number
+  shuffleQuestions?: Prisma.BoolFieldUpdateOperationsInput | boolean
   teacherId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -762,6 +795,7 @@ export type ExamCreateManyTeacherInput = {
   code: string
   duration: number
   passMark?: number
+  shuffleQuestions?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -773,6 +807,7 @@ export type ExamUpdateWithoutTeacherInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   passMark?: Prisma.IntFieldUpdateOperationsInput | number
+  shuffleQuestions?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.QuestionUpdateManyWithoutExamNestedInput
@@ -786,6 +821,7 @@ export type ExamUncheckedUpdateWithoutTeacherInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   passMark?: Prisma.IntFieldUpdateOperationsInput | number
+  shuffleQuestions?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   questions?: Prisma.QuestionUncheckedUpdateManyWithoutExamNestedInput
@@ -799,6 +835,7 @@ export type ExamUncheckedUpdateManyWithoutTeacherInput = {
   code?: Prisma.StringFieldUpdateOperationsInput | string
   duration?: Prisma.IntFieldUpdateOperationsInput | number
   passMark?: Prisma.IntFieldUpdateOperationsInput | number
+  shuffleQuestions?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -850,6 +887,7 @@ export type ExamSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   code?: boolean
   duration?: boolean
   passMark?: boolean
+  shuffleQuestions?: boolean
   teacherId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -866,6 +904,7 @@ export type ExamSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   code?: boolean
   duration?: boolean
   passMark?: boolean
+  shuffleQuestions?: boolean
   teacherId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -879,6 +918,7 @@ export type ExamSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   code?: boolean
   duration?: boolean
   passMark?: boolean
+  shuffleQuestions?: boolean
   teacherId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -892,12 +932,13 @@ export type ExamSelectScalar = {
   code?: boolean
   duration?: boolean
   passMark?: boolean
+  shuffleQuestions?: boolean
   teacherId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ExamOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "code" | "duration" | "passMark" | "teacherId" | "createdAt" | "updatedAt", ExtArgs["result"]["exam"]>
+export type ExamOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "code" | "duration" | "passMark" | "shuffleQuestions" | "teacherId" | "createdAt" | "updatedAt", ExtArgs["result"]["exam"]>
 export type ExamInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   teacher?: boolean | Prisma.Exam$teacherArgs<ExtArgs>
   questions?: boolean | Prisma.Exam$questionsArgs<ExtArgs>
@@ -925,6 +966,7 @@ export type $ExamPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     code: string
     duration: number
     passMark: number
+    shuffleQuestions: boolean
     teacherId: string | null
     createdAt: Date
     updatedAt: Date
@@ -1360,6 +1402,7 @@ export interface ExamFieldRefs {
   readonly code: Prisma.FieldRef<"Exam", 'String'>
   readonly duration: Prisma.FieldRef<"Exam", 'Int'>
   readonly passMark: Prisma.FieldRef<"Exam", 'Int'>
+  readonly shuffleQuestions: Prisma.FieldRef<"Exam", 'Boolean'>
   readonly teacherId: Prisma.FieldRef<"Exam", 'String'>
   readonly createdAt: Prisma.FieldRef<"Exam", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Exam", 'DateTime'>

@@ -1557,6 +1557,7 @@ export const ExamScalarFieldEnum = {
   code: 'code',
   duration: 'duration',
   passMark: 'passMark',
+  shuffleQuestions: 'shuffleQuestions',
   teacherId: 'teacherId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

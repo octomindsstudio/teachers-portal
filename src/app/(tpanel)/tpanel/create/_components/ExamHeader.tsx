@@ -2,11 +2,6 @@
 
 import { Button } from "@heroui/react";
 import { ArrowLeft, Save } from "lucide-react";
-import { useRouter } from "next/navigation"; // Correct router for app directory? No, user used custom hook.
-// I should check the original file. Original uses `@/hooks/useRouter`. I will stick to that if possible, or standard `next/navigation`.
-// The user used `import { useRouter } from "@/hooks/useRouter";`. I should use that or pass it as prop.
-// Actually, `navigation` is safer for component purity if I can. But let's check `useRouter` hook usage.
-// Assuming standard Next.js behavior for `back()`.
 
 interface ExamHeaderProps {
   onBack: () => void;
@@ -47,7 +42,7 @@ export function ExamHeader({
           <Button
             color="primary"
             variant="shadow"
-            startContent={<Save size={18} />}
+            startContent={isPublishing ? null : <Save size={18} />}
             onPress={onPublish}
             isLoading={isPublishing}
             className="font-medium px-6"

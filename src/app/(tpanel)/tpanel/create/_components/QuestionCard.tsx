@@ -26,6 +26,7 @@ import {
   Hash,
   ArrowLeftRight,
   ListPlus,
+  CheckSquare,
 } from "lucide-react";
 import { FormValues } from "../schema";
 import { MultipleChoiceEditor } from "./question-types/MultipleChoiceEditor";
@@ -62,6 +63,16 @@ export function QuestionCard({
     if (newType === "MULTIPLE_CHOICE") {
       setValue(`questions.${index}` as any, {
         type: "MULTIPLE_CHOICE",
+        text: "",
+        points: 1,
+        choices: [
+          { text: "", isCorrect: false },
+          { text: "", isCorrect: false },
+        ],
+      });
+    } else if (newType === "MULTI_SELECT") {
+      setValue(`questions.${index}` as any, {
+        type: "MULTI_SELECT",
         text: "",
         points: 1,
         choices: [
@@ -157,6 +168,12 @@ export function QuestionCard({
                       Multiple Choice
                     </SelectItem>
                     <SelectItem
+                      key="MULTI_SELECT"
+                      startContent={<CheckSquare size={14} />}
+                    >
+                      Multi Select
+                    </SelectItem>
+                    <SelectItem
                       key="TRUE_FALSE"
                       startContent={<CheckCircle2 size={14} />}
                     >
@@ -248,11 +265,13 @@ export function QuestionCard({
           {questionType === "TRUE_FALSE" && (
             <TrueFalseEditor index={index} control={control} />
           )}
-          {questionType === "MULTIPLE_CHOICE" && (
+          {(questionType === "MULTIPLE_CHOICE" ||
+            questionType === "MULTI_SELECT") && (
             <MultipleChoiceEditor
               index={index}
               register={register}
               control={control}
+              setValue={setValue}
             />
           )}
           {(questionType === "FILL_BLANK" ||

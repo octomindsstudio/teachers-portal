@@ -43,7 +43,8 @@ export function ExamSettings({ register, errors }: ExamSettingsProps) {
             <div className="flex flex-col gap-3">
               <Checkbox
                 size="sm"
-                defaultSelected
+                {...register("shuffleQuestions")}
+                defaultSelected={false}
                 classNames={{ label: "text-small text-default-600" }}
               >
                 Shuffle Questions

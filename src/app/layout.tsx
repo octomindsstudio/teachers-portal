@@ -72,7 +72,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} antialiased`}><Provider>{children}</Provider></body>
+      <body className={`${poppins.variable} antialiased`}>
+        <Provider>{children}</Provider>
+      </body>
     </html>
   );
 }

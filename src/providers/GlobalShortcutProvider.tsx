@@ -11,7 +11,12 @@ export function GlobalShortcutProvider({
   return (
     <Keybindy
       shortcuts={[
-       
+       {
+        keys: ["F12"],
+        handler(event, state) {
+          event.preventDefault()
+        },
+       }
       ]}
     >
       {children}

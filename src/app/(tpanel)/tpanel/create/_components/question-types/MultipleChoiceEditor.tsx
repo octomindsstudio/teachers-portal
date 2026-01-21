@@ -2,9 +2,11 @@
 
 import {
   Control,
-  UseFormRegister,
   Controller,
   useFieldArray,
+  UseFormRegister,
+  UseFormSetValue,
+  useWatch,
 } from "react-hook-form";
 import { Button, Input, Checkbox, cn } from "@heroui/react";
 import { Plus, Trash2 } from "lucide-react";
@@ -14,16 +16,23 @@ interface MultipleChoiceEditorProps {
   index: number;
   register: UseFormRegister<FormValues>;
   control: Control<FormValues>;
+  setValue: UseFormSetValue<FormValues>;
 }
 
 export function MultipleChoiceEditor({
   index,
   register,
   control,
+  setValue,
 }: MultipleChoiceEditorProps) {
   const { fields, append, remove } = useFieldArray({
     control,
     name: `questions.${index}.choices` as any,
+  });
+
+  const questionType = useWatch({
+    control,
+    name: `questions.${index}.type` as any,
   });
 
   return (
@@ -40,13 +49,38 @@ export function MultipleChoiceEditor({
               render={({ field }) => (
                 <Checkbox
                   isSelected={field.value}
-                  onValueChange={field.onChange}
-                  color="success"
-                  size="md"
-                  radius="full"
+                  onValueChange={(isSelected) => {
+                    field.onChange(isSelected);
+
+                    // Exclusive selection logic for MULTIPLE_CHOICE
+                    if (isSelected && questionType === "MULTIPLE_CHOICE") {
+                      fields.forEach((_, fIndex) => {
+                        if (fIndex !== cIndex) {
+                          setValue(
+                            `questions.${index}.choices.${fIndex}.isCorrect` as any,
+                            false,
+                          );
+                        }
+                      });
+                    }
+                  }}
+                  color={
+                    questionType === "MULTIPLE_CHOICE" ? "secondary" : "success"
+                  }
+                  // UI Distinction: Circle for Single, Rounded Square for Multi
+                  radius={questionType === "MULTIPLE_CHOICE" ? "full" : "sm"}
+                  icon={
+                    questionType === "MULTIPLE_CHOICE" ? (
+                      <div className="w-2 h-2 rounded-full bg-white" />
+                    ) : undefined
+                  }
                   classNames={{
-                    wrapper:
-                      "before:border-default-400 group-hover/choice:before:border-success",
+                    wrapper: cn(
+                      "before:border-default-400 group-hover/choice:before:border-primary",
+                      questionType === "MULTIPLE_CHOICE"
+                        ? "group-hover/choice:before:border-secondary"
+                        : "group-hover/choice:before:border-success",
+                    ),
                   }}
                 />
               )}
