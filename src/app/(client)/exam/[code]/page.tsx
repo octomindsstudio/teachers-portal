@@ -12,7 +12,8 @@ import { AnimatePresence } from "framer-motion";
 import { AlertCircle } from "lucide-react";
 
 import { useAntiCheat } from "@/hooks/useAntiCheat";
-// New Components
+import { LoadingView } from "./_components/LoadingView";
+import { ErrorView } from "./_components/ErrorView";
 import { WelcomeView } from "./_components/WelcomeView";
 import { ActiveExamView } from "./_components/ActiveExamView";
 import { ResultView } from "./_components/ResultView";
@@ -36,15 +37,11 @@ type ExamData = {
       | "TRUE_FALSE"
       | "FILL_BLANK"
       | "FILL_BLANK_CLUE"
-      | "MATCHING";
     points: number;
     // Relationships
     mcq?: { choices: Array<{ id: string; text: string }> };
     trueFalse?: { correct: boolean };
     fillBlank?: { answers: string[]; clue?: string | null };
-    matching?: {
-      pairs: Array<{ id: string; leftText: string; rightText: string }>;
-    };
   }>;
 };
 
@@ -65,6 +62,7 @@ export default function ExamPage() {
 
   // Track if we are auto-submitting to prevent double submissions
   const isAutoSubmitting = useRef(false);
+  const startedAtRef = useRef<number | null>(null);
 
   // Anti-Cheat Hook
   const MAX_STRIKES = 3;
@@ -140,6 +138,10 @@ export default function ExamPage() {
             }
           }
 
+          if (parsed.startedAt) {
+            startedAtRef.current = parsed.startedAt;
+          }
+
           // 2. Check Expiry (Immediate Auto-Submit)
           if (parsed.targetEndTime && now > parsed.targetEndTime) {
             setStage("booted");
@@ -189,6 +191,7 @@ export default function ExamPage() {
         studentName: getValues("studentName"),
         answers: getValues("answers"),
         strikes: strikes, // Save strikes so reloading doesn't reset them
+        startedAt: startedAtRef.current,
       };
       localStorage.setItem(storageKey, JSON.stringify(newData));
     }
@@ -238,11 +241,15 @@ export default function ExamPage() {
       const durationSec = exam.duration * 60;
       const targetEndTime = Date.now() + durationSec * 1000;
 
+      const startTime = Date.now();
+      startedAtRef.current = startTime; // Fix: Update Ref immediately!
+
       const dataToSave = {
         studentName: getValues("studentName"),
         targetEndTime: targetEndTime,
         answers: {},
         strikes: 0,
+        startedAt: startTime, // Capture Start Time
       };
       localStorage.setItem(storageKey, JSON.stringify(dataToSave));
 
@@ -269,17 +276,20 @@ export default function ExamPage() {
             question.type === "FILL_BLANK_CLUE"
           ) {
             return { questionId: qId, textAnswer: JSON.stringify(val) };
-          } else if (question.type === "MATCHING") {
-            return { questionId: qId, matchingAnswer: val };
           }
           return { questionId: qId };
         },
       );
 
+      const durationMs = startedAtRef.current
+        ? Date.now() - startedAtRef.current
+        : 0;
+
       const res = await api.exams({ code: examCode }).attempt.post({
         studentName: data.studentName,
         answers: answersArray,
         strikes: strikes,
+        durationMs: durationMs, // Send calculated duration
       });
 
       if (res.error) throw res.error;
@@ -318,7 +328,6 @@ export default function ExamPage() {
       if (typeof val === "boolean") return true; // True/False
       if (typeof val === "string") return val.trim().length > 0;
       if (Array.isArray(val)) return val.some((v) => v && v.trim().length > 0); // Fill Blank
-      if (typeof val === "object") return Object.keys(val).length > 0; // Matching
       return true;
     },
   ).length;
@@ -327,27 +336,9 @@ export default function ExamPage() {
   const progress =
     totalQuestions > 0 ? (answeredCount / totalQuestions) * 100 : 0;
 
-  if (isLoading || (!isRestored && exam))
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-default-50">
-        <Spinner size="lg" color="primary" label="Loading Assessment..." />
-      </div>
-    );
+  if (isLoading || (!isRestored && exam)) return <LoadingView />;
 
-  if (error || !exam)
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-default-50">
-        <Card className="p-8 max-w-md text-center border-danger-200 bg-danger-50">
-          <AlertCircle className="w-12 h-12 text-danger mx-auto mb-4" />
-          <div className="text-danger-900 font-bold mb-2 text-xl">
-            Assessment Not Found
-          </div>
-          <p className="text-danger-600">
-            Please verify the code and try again.
-          </p>
-        </Card>
-      </div>
-    );
+  if (error || !exam) return <ErrorView />;
 
   return (
     <div className="min-h-screen w-full bg-[#f8f9fc] text-default-900 select-none overflow-x-hidden">

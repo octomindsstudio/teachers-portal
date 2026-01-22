@@ -24,7 +24,7 @@ export default function CreateExamPage() {
     setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema) as any,
     defaultValues: {
       title: "",
       description: "",
@@ -179,7 +179,7 @@ export default function CreateExamPage() {
                     <QuestionCard
                       index={index}
                       questionNumber={fields.length - index}
-                      control={control}
+                      control={control as any}
                       register={register}
                       remove={remove}
                       errors={errors}
@@ -192,7 +192,7 @@ export default function CreateExamPage() {
           </div>
 
           {/* Sidebar Settings */}
-          <ExamSettings register={register} errors={errors} />
+          <ExamSettings register={register} errors={errors} control={control as any} />
         </motion.div>
       </div>
     </div>

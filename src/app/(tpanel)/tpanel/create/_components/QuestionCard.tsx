@@ -32,7 +32,6 @@ import { FormValues } from "../schema";
 import { MultipleChoiceEditor } from "./question-types/MultipleChoiceEditor";
 import { TrueFalseEditor } from "./question-types/TrueFalseEditor";
 import { FillBlankEditor } from "./question-types/FillBlankEditor";
-import { MatchingEditor } from "./question-types/MatchingEditor";
 
 interface QuestionCardProps {
   index: number;
@@ -110,16 +109,6 @@ export function QuestionCard({
         correctValue: 0,
         tolerance: 0,
       });
-    } else if (newType === "MATCHING") {
-      setValue(`questions.${index}` as any, {
-        type: "MATCHING",
-        text: "",
-        points: 1,
-        pairs: [
-          { left: "", right: "" },
-          { left: "", right: "" },
-        ],
-      });
     }
   };
 
@@ -161,42 +150,41 @@ export function QuestionCard({
                     }}
                     disallowEmptySelection
                   >
-                    <SelectItem
-                      key="MULTIPLE_CHOICE"
-                      startContent={<MoreHorizontal size={14} />}
-                    >
-                      Multiple Choice
-                    </SelectItem>
-                    <SelectItem
-                      key="MULTI_SELECT"
-                      startContent={<CheckSquare size={14} />}
-                    >
-                      Multi Select
-                    </SelectItem>
-                    <SelectItem
-                      key="TRUE_FALSE"
-                      startContent={<CheckCircle2 size={14} />}
-                    >
-                      True/False
-                    </SelectItem>
-                    <SelectItem
-                      key="FILL_BLANK"
-                      startContent={<Type size={14} />}
-                    >
-                      Fill in Blank
-                    </SelectItem>
-                    <SelectItem
-                      key="FILL_BLANK_CLUE"
-                      startContent={<ListPlus size={14} />}
-                    >
-                      Fill in Blank (Clue)
-                    </SelectItem>
-                    <SelectItem
-                      key="MATCHING"
-                      startContent={<ArrowLeftRight size={14} />}
-                    >
-                      Matching
-                    </SelectItem>
+                    {[
+                      {
+                        key: "MULTIPLE_CHOICE",
+                        value: "Multiple Choice",
+                        icon: <MoreHorizontal size={14} />,
+                      },
+                      {
+                        key: "MULTI_SELECT",
+                        value: "Multi Select",
+                        icon: <CheckSquare size={14} />,
+                      },
+                      {
+                        key: "TRUE_FALSE",
+                        value: "True/False",
+                        icon: <CheckCircle2 size={14} />,
+                      },
+                      {
+                        key: "FILL_BLANK",
+                        value: "Fill in Blank",
+                        icon: <Type size={14} />,
+                      },
+                      {
+                        key: "FILL_BLANK_CLUE",
+                        value: "Fill in Blank (Clue)",
+                        icon: <ListPlus size={14} />,
+                      },
+                    ].map((item) => (
+                      <SelectItem
+                        key={item.key}
+                        startContent={item.icon}
+                        onPress={() => handleTypeChange(item.key)}
+                      >
+                        {item.value}
+                      </SelectItem>
+                    ))}
                   </Select>
                 )}
               />
@@ -282,13 +270,6 @@ export function QuestionCard({
               control={control}
               setValue={setValue} // Need setValue to update text/answers
               isClueType={questionType === "FILL_BLANK_CLUE"}
-            />
-          )}
-          {questionType === "MATCHING" && (
-            <MatchingEditor
-              index={index}
-              register={register}
-              control={control}
             />
           )}
         </div>

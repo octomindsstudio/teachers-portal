@@ -20,7 +20,6 @@ import { Control, Controller, UseFormHandleSubmit } from "react-hook-form";
 import { AttemptSchema } from "./schema";
 import { StudentTrueFalse } from "./StudentTrueFalse";
 import { StudentFillBlank } from "./StudentFillBlank";
-import { StudentMatching } from "./StudentMatching";
 import { Keybindy } from "@keybindy/react";
 
 interface ActiveExamViewProps {
@@ -397,15 +396,6 @@ export const ActiveExamView: React.FC<ActiveExamViewProps> = ({
                                             onChange={field.onChange}
                                           />
                                         )}
-
-                                        {q.type === "MATCHING" &&
-                                          q.matching && (
-                                            <StudentMatching
-                                              questionId={q.id}
-                                              pairs={q.matching.pairs}
-                                              onChange={field.onChange}
-                                            />
-                                          )}
                                       </div>
                                     )}
                                   />

@@ -17,8 +17,6 @@ enum QuestionType {
   TRUE_FALSE
   FILL_BLANK
   FILL_BLANK_CLUE
-  NUMERIC
-  MATCHING
 }
 
 enum EvaluationType {
@@ -47,6 +45,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   exams         Exam[]
+  categories    Category[]
 }
 
 model Session {
@@ -101,6 +100,9 @@ model Exam {
   teacherId   String?
   teacher     User?    @relation(fields: [teacherId], references: [id])
 
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id])
+
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -108,8 +110,24 @@ model Exam {
   attempts    Attempt[]
 }
 
+model Category {
+  id        String   @id @default(uuid())
+  name      String
+
+  teacherId String
+  teacher   User     @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+
+  exams     Exam[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, teacherId])
+}
+
 model Question {
   id             String         @id @default(uuid())
+  idx            Int            @default(autoincrement())
   text           String
   type           QuestionType
   evaluationType EvaluationType @default(AUTO)
@@ -121,7 +139,6 @@ model Question {
   mcq            MCQQuestion?
   trueFalse      TrueFalseQuestion?
   fillBlank      FillBlankQuestion?
-  matching       MatchingQuestion?
 
   answers        Answer[]
 }
@@ -170,25 +187,6 @@ model FillBlankQuestion {
   clue        String?   // null = normal fill blank
 }
 
-// ---- MATCHING ----
-
-model MatchingQuestion {
-  id         String   @id @default(uuid())
-  questionId String   @unique
-  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
-
-  pairs      MatchingPair[]
-}
-
-model MatchingPair {
-  id         String @id @default(uuid())
-  leftText   String
-  rightText  String
-
-  matchingId String
-  matching   MatchingQuestion @relation(fields: [matchingId], references: [id], onDelete: Cascade)
-}
-
 // =======================
 // ATTEMPTS & ANSWERS
 // =======================
@@ -221,5 +219,4 @@ model Answer {
   selectedChoiceIds String[]
   booleanAnswer     Boolean?
   textAnswer        String?
-  matchingAnswer    Json?
 }

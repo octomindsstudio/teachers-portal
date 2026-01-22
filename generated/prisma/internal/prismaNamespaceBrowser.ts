@@ -56,13 +56,12 @@ export const ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   Exam: 'Exam',
+  Category: 'Category',
   Question: 'Question',
   MCQQuestion: 'MCQQuestion',
   Choice: 'Choice',
   TrueFalseQuestion: 'TrueFalseQuestion',
   FillBlankQuestion: 'FillBlankQuestion',
-  MatchingQuestion: 'MatchingQuestion',
-  MatchingPair: 'MatchingPair',
   Attempt: 'Attempt',
   Answer: 'Answer'
 } as const
@@ -150,6 +149,7 @@ export const ExamScalarFieldEnum = {
   passMark: 'passMark',
   shuffleQuestions: 'shuffleQuestions',
   teacherId: 'teacherId',
+  categoryId: 'categoryId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -157,8 +157,20 @@ export const ExamScalarFieldEnum = {
 export type ExamScalarFieldEnum = (typeof ExamScalarFieldEnum)[keyof typeof ExamScalarFieldEnum]
 
 
+export const CategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  teacherId: 'teacherId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
 export const QuestionScalarFieldEnum = {
   id: 'id',
+  idx: 'idx',
   text: 'text',
   type: 'type',
   evaluationType: 'evaluationType',
@@ -206,28 +218,11 @@ export const FillBlankQuestionScalarFieldEnum = {
 export type FillBlankQuestionScalarFieldEnum = (typeof FillBlankQuestionScalarFieldEnum)[keyof typeof FillBlankQuestionScalarFieldEnum]
 
 
-export const MatchingQuestionScalarFieldEnum = {
-  id: 'id',
-  questionId: 'questionId'
-} as const
-
-export type MatchingQuestionScalarFieldEnum = (typeof MatchingQuestionScalarFieldEnum)[keyof typeof MatchingQuestionScalarFieldEnum]
-
-
-export const MatchingPairScalarFieldEnum = {
-  id: 'id',
-  leftText: 'leftText',
-  rightText: 'rightText',
-  matchingId: 'matchingId'
-} as const
-
-export type MatchingPairScalarFieldEnum = (typeof MatchingPairScalarFieldEnum)[keyof typeof MatchingPairScalarFieldEnum]
-
-
 export const AttemptScalarFieldEnum = {
   id: 'id',
   studentName: 'studentName',
   score: 'score',
+  strikes: 'strikes',
   examId: 'examId',
   startedAt: 'startedAt',
   finishedAt: 'finishedAt'
@@ -242,8 +237,7 @@ export const AnswerScalarFieldEnum = {
   questionId: 'questionId',
   selectedChoiceIds: 'selectedChoiceIds',
   booleanAnswer: 'booleanAnswer',
-  textAnswer: 'textAnswer',
-  matchingAnswer: 'matchingAnswer'
+  textAnswer: 'textAnswer'
 } as const
 
 export type AnswerScalarFieldEnum = (typeof AnswerScalarFieldEnum)[keyof typeof AnswerScalarFieldEnum]
@@ -255,14 +249,6 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-export const NullableJsonNullValueInput = {
-  DbNull: 'DbNull',
-  JsonNull: 'JsonNull'
-} as const
-
-export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -279,13 +265,4 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-export const JsonNullValueFilter = {
-  DbNull: 'DbNull',
-  JsonNull: 'JsonNull',
-  AnyNull: 'AnyNull'
-} as const
-
-export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

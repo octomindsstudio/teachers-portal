@@ -40,6 +40,14 @@ export function FillBlankEditor({
   });
 
   const [editorValue, setEditorValue] = useState("");
+  const initialized = useRef(false);
+
+  useEffect(() => {
+    if (currentText && !initialized.current) {
+      setEditorValue(currentText);
+      initialized.current = true;
+    }
+  }, [currentText]);
   // Sync initial value if needed - usually empty for new question
   // But if editing, we might need to populate from form text?
   // Let's assume for now creation flow is main use case,

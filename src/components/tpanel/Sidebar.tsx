@@ -10,6 +10,7 @@ import {
   Settings,
   LogOut,
   HelpCircle,
+  Tags,
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { usePathname } from "next/navigation";
@@ -25,6 +26,7 @@ import {
 import { cn } from "@heroui/react";
 import { useRouter } from "@/hooks/useRouter";
 import { useAuthStore } from "@/store/auth-store";
+import { useAuthNavigator } from "@/hooks/useAuthNavigator";
 
 const NAV_ITEMS = [
   {
@@ -39,6 +41,12 @@ const NAV_ITEMS = [
     href: "/tpanel/create",
     icon: PlusCircle,
   },
+  {
+    id: "categories",
+    label: "Categories",
+    href: "/tpanel/categories",
+    icon: Tags,
+  },
 ];
 
 export function Sidebar() {
@@ -46,10 +54,11 @@ export function Sidebar() {
   const { sidebarRef, startResizing, sidebarWidth } = useSidebarResize();
   const pathname = usePathname();
   const { user } = useAuthStore();
+  const authNavigator = useAuthNavigator();
 
   const handleLogout = async () => {
-    await authClient.signOut();
-    router.push("/login"); // Redirect to login after logout
+    await authNavigator.signOut();
+    authNavigator.signIn();
   };
 
   return (

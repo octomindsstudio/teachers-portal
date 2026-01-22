@@ -1,16 +1,23 @@
 "use client";
 
-import { UseFormRegister, FieldErrors } from "react-hook-form";
+import {
+  UseFormRegister,
+  FieldErrors,
+  Control,
+  Controller,
+} from "react-hook-form";
 import { Card, CardBody, Input, Checkbox } from "@heroui/react";
 import { Clock, AlertCircle } from "lucide-react";
 import { FormValues } from "../schema";
+import { CategorySelect } from "@/components/tpanel/CategorySelect";
 
 interface ExamSettingsProps {
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
+  control: Control<FormValues>;
 }
 
-export function ExamSettings({ register, errors }: ExamSettingsProps) {
+export function ExamSettings({ register, errors, control }: ExamSettingsProps) {
   return (
     <div className="sticky top-24 space-y-4">
       <Card className="border border-default-200 shadow-sm">
@@ -20,7 +27,19 @@ export function ExamSettings({ register, errors }: ExamSettingsProps) {
             Settings
           </h3>
 
-          <div className="space-y-4">
+          <div className="space-y-10">
+            <Controller
+              control={control}
+              name="categoryId"
+              render={({ field }) => (
+                <CategorySelect
+                  value={field.value}
+                  onChange={field.onChange}
+                  error={errors.categoryId?.message}
+                />
+              )}
+            />
+
             <Input
               {...register("duration", { valueAsNumber: true })}
               type="number"
@@ -40,6 +59,25 @@ export function ExamSettings({ register, errors }: ExamSettingsProps) {
               }
             />
 
+            <Input
+              {...register("passMark", { valueAsNumber: true })}
+              type="number"
+              label="Pass Mark"
+              variant="bordered"
+              labelPlacement="outside"
+              placeholder="e.g. 50"
+              errorMessage={errors.passMark?.message}
+              classNames={{
+                input: "no-arrow",
+              }}
+              isInvalid={!!errors.passMark}
+              endContent={
+                <div className="pointer-events-none flex items-center">
+                  <span className="text-default-400 text-small">pts</span>
+                </div>
+              }
+            />
+
             <div className="flex flex-col gap-3">
               <Checkbox
                 size="sm"
@@ -48,12 +86,6 @@ export function ExamSettings({ register, errors }: ExamSettingsProps) {
                 classNames={{ label: "text-small text-default-600" }}
               >
                 Shuffle Questions
-              </Checkbox>
-              <Checkbox
-                size="sm"
-                classNames={{ label: "text-small text-default-600" }}
-              >
-                Show Results Immediately
               </Checkbox>
             </div>
           </div>

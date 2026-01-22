@@ -15,7 +15,9 @@ export const useAuthNavigator = () => {
 
   return {
     signIn: (url?: string, options?: { callbackUrl?: string }) =>
-      navigate(url || "/sign-in", options?.callbackUrl),
+      navigate(url || "/signin", options?.callbackUrl),
+    signUp: (url?: string, options?: { callbackUrl?: string }) =>
+      navigate(url || "/signup", options?.callbackUrl),
     signOut: async (options?: { callbackUrl?: string }) => {
       if (typeof window === "undefined") return;
       await authClient.signOut({

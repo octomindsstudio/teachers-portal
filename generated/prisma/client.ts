@@ -65,6 +65,11 @@ export type Verification = Prisma.VerificationModel
  */
 export type Exam = Prisma.ExamModel
 /**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
+/**
  * Model Question
  * 
  */
@@ -89,16 +94,6 @@ export type TrueFalseQuestion = Prisma.TrueFalseQuestionModel
  * 
  */
 export type FillBlankQuestion = Prisma.FillBlankQuestionModel
-/**
- * Model MatchingQuestion
- * 
- */
-export type MatchingQuestion = Prisma.MatchingQuestionModel
-/**
- * Model MatchingPair
- * 
- */
-export type MatchingPair = Prisma.MatchingPairModel
 /**
  * Model Attempt
  * 

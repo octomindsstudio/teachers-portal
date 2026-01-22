@@ -14,9 +14,7 @@ export const QuestionType = {
   MULTI_SELECT: 'MULTI_SELECT',
   TRUE_FALSE: 'TRUE_FALSE',
   FILL_BLANK: 'FILL_BLANK',
-  FILL_BLANK_CLUE: 'FILL_BLANK_CLUE',
-  NUMERIC: 'NUMERIC',
-  MATCHING: 'MATCHING'
+  FILL_BLANK_CLUE: 'FILL_BLANK_CLUE'
 } as const
 
 export type QuestionType = (typeof QuestionType)[keyof typeof QuestionType]

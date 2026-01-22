@@ -47,7 +47,6 @@ export type AnswerCountAggregateOutputType = {
   selectedChoiceIds: number
   booleanAnswer: number
   textAnswer: number
-  matchingAnswer: number
   _all: number
 }
 
@@ -75,7 +74,6 @@ export type AnswerCountAggregateInputType = {
   selectedChoiceIds?: true
   booleanAnswer?: true
   textAnswer?: true
-  matchingAnswer?: true
   _all?: true
 }
 
@@ -158,7 +156,6 @@ export type AnswerGroupByOutputType = {
   selectedChoiceIds: string[]
   booleanAnswer: boolean | null
   textAnswer: string | null
-  matchingAnswer: runtime.JsonValue | null
   _count: AnswerCountAggregateOutputType | null
   _min: AnswerMinAggregateOutputType | null
   _max: AnswerMaxAggregateOutputType | null
@@ -189,7 +186,6 @@ export type AnswerWhereInput = {
   selectedChoiceIds?: Prisma.StringNullableListFilter<"Answer">
   booleanAnswer?: Prisma.BoolNullableFilter<"Answer"> | boolean | null
   textAnswer?: Prisma.StringNullableFilter<"Answer"> | string | null
-  matchingAnswer?: Prisma.JsonNullableFilter<"Answer">
   attempt?: Prisma.XOR<Prisma.AttemptScalarRelationFilter, Prisma.AttemptWhereInput>
   question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
 }
@@ -201,7 +197,6 @@ export type AnswerOrderByWithRelationInput = {
   selectedChoiceIds?: Prisma.SortOrder
   booleanAnswer?: Prisma.SortOrderInput | Prisma.SortOrder
   textAnswer?: Prisma.SortOrderInput | Prisma.SortOrder
-  matchingAnswer?: Prisma.SortOrderInput | Prisma.SortOrder
   attempt?: Prisma.AttemptOrderByWithRelationInput
   question?: Prisma.QuestionOrderByWithRelationInput
 }
@@ -216,7 +211,6 @@ export type AnswerWhereUniqueInput = Prisma.AtLeast<{
   selectedChoiceIds?: Prisma.StringNullableListFilter<"Answer">
   booleanAnswer?: Prisma.BoolNullableFilter<"Answer"> | boolean | null
   textAnswer?: Prisma.StringNullableFilter<"Answer"> | string | null
-  matchingAnswer?: Prisma.JsonNullableFilter<"Answer">
   attempt?: Prisma.XOR<Prisma.AttemptScalarRelationFilter, Prisma.AttemptWhereInput>
   question?: Prisma.XOR<Prisma.QuestionScalarRelationFilter, Prisma.QuestionWhereInput>
 }, "id">
@@ -228,7 +222,6 @@ export type AnswerOrderByWithAggregationInput = {
   selectedChoiceIds?: Prisma.SortOrder
   booleanAnswer?: Prisma.SortOrderInput | Prisma.SortOrder
   textAnswer?: Prisma.SortOrderInput | Prisma.SortOrder
-  matchingAnswer?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.AnswerCountOrderByAggregateInput
   _max?: Prisma.AnswerMaxOrderByAggregateInput
   _min?: Prisma.AnswerMinOrderByAggregateInput
@@ -244,7 +237,6 @@ export type AnswerScalarWhereWithAggregatesInput = {
   selectedChoiceIds?: Prisma.StringNullableListFilter<"Answer">
   booleanAnswer?: Prisma.BoolNullableWithAggregatesFilter<"Answer"> | boolean | null
   textAnswer?: Prisma.StringNullableWithAggregatesFilter<"Answer"> | string | null
-  matchingAnswer?: Prisma.JsonNullableWithAggregatesFilter<"Answer">
 }
 
 export type AnswerCreateInput = {
@@ -252,7 +244,6 @@ export type AnswerCreateInput = {
   selectedChoiceIds?: Prisma.AnswerCreateselectedChoiceIdsInput | string[]
   booleanAnswer?: boolean | null
   textAnswer?: string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   attempt: Prisma.AttemptCreateNestedOneWithoutAnswersInput
   question: Prisma.QuestionCreateNestedOneWithoutAnswersInput
 }
@@ -264,7 +255,6 @@ export type AnswerUncheckedCreateInput = {
   selectedChoiceIds?: Prisma.AnswerCreateselectedChoiceIdsInput | string[]
   booleanAnswer?: boolean | null
   textAnswer?: string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type AnswerUpdateInput = {
@@ -272,7 +262,6 @@ export type AnswerUpdateInput = {
   selectedChoiceIds?: Prisma.AnswerUpdateselectedChoiceIdsInput | string[]
   booleanAnswer?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   textAnswer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   attempt?: Prisma.AttemptUpdateOneRequiredWithoutAnswersNestedInput
   question?: Prisma.QuestionUpdateOneRequiredWithoutAnswersNestedInput
 }
@@ -284,7 +273,6 @@ export type AnswerUncheckedUpdateInput = {
   selectedChoiceIds?: Prisma.AnswerUpdateselectedChoiceIdsInput | string[]
   booleanAnswer?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   textAnswer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type AnswerCreateManyInput = {
@@ -294,7 +282,6 @@ export type AnswerCreateManyInput = {
   selectedChoiceIds?: Prisma.AnswerCreateselectedChoiceIdsInput | string[]
   booleanAnswer?: boolean | null
   textAnswer?: string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type AnswerUpdateManyMutationInput = {
@@ -302,7 +289,6 @@ export type AnswerUpdateManyMutationInput = {
   selectedChoiceIds?: Prisma.AnswerUpdateselectedChoiceIdsInput | string[]
   booleanAnswer?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   textAnswer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type AnswerUncheckedUpdateManyInput = {
@@ -312,7 +298,6 @@ export type AnswerUncheckedUpdateManyInput = {
   selectedChoiceIds?: Prisma.AnswerUpdateselectedChoiceIdsInput | string[]
   booleanAnswer?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   textAnswer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type AnswerListRelationFilter = {
@@ -332,7 +317,6 @@ export type AnswerCountOrderByAggregateInput = {
   selectedChoiceIds?: Prisma.SortOrder
   booleanAnswer?: Prisma.SortOrder
   textAnswer?: Prisma.SortOrder
-  matchingAnswer?: Prisma.SortOrder
 }
 
 export type AnswerMaxOrderByAggregateInput = {
@@ -449,7 +433,6 @@ export type AnswerCreateWithoutQuestionInput = {
   selectedChoiceIds?: Prisma.AnswerCreateselectedChoiceIdsInput | string[]
   booleanAnswer?: boolean | null
   textAnswer?: string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   attempt: Prisma.AttemptCreateNestedOneWithoutAnswersInput
 }
 
@@ -459,7 +442,6 @@ export type AnswerUncheckedCreateWithoutQuestionInput = {
   selectedChoiceIds?: Prisma.AnswerCreateselectedChoiceIdsInput | string[]
   booleanAnswer?: boolean | null
   textAnswer?: string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type AnswerCreateOrConnectWithoutQuestionInput = {
@@ -498,7 +480,6 @@ export type AnswerScalarWhereInput = {
   selectedChoiceIds?: Prisma.StringNullableListFilter<"Answer">
   booleanAnswer?: Prisma.BoolNullableFilter<"Answer"> | boolean | null
   textAnswer?: Prisma.StringNullableFilter<"Answer"> | string | null
-  matchingAnswer?: Prisma.JsonNullableFilter<"Answer">
 }
 
 export type AnswerCreateWithoutAttemptInput = {
@@ -506,7 +487,6 @@ export type AnswerCreateWithoutAttemptInput = {
   selectedChoiceIds?: Prisma.AnswerCreateselectedChoiceIdsInput | string[]
   booleanAnswer?: boolean | null
   textAnswer?: string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   question: Prisma.QuestionCreateNestedOneWithoutAnswersInput
 }
 
@@ -516,7 +496,6 @@ export type AnswerUncheckedCreateWithoutAttemptInput = {
   selectedChoiceIds?: Prisma.AnswerCreateselectedChoiceIdsInput | string[]
   booleanAnswer?: boolean | null
   textAnswer?: string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type AnswerCreateOrConnectWithoutAttemptInput = {
@@ -551,7 +530,6 @@ export type AnswerCreateManyQuestionInput = {
   selectedChoiceIds?: Prisma.AnswerCreateselectedChoiceIdsInput | string[]
   booleanAnswer?: boolean | null
   textAnswer?: string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type AnswerUpdateWithoutQuestionInput = {
@@ -559,7 +537,6 @@ export type AnswerUpdateWithoutQuestionInput = {
   selectedChoiceIds?: Prisma.AnswerUpdateselectedChoiceIdsInput | string[]
   booleanAnswer?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   textAnswer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   attempt?: Prisma.AttemptUpdateOneRequiredWithoutAnswersNestedInput
 }
 
@@ -569,7 +546,6 @@ export type AnswerUncheckedUpdateWithoutQuestionInput = {
   selectedChoiceIds?: Prisma.AnswerUpdateselectedChoiceIdsInput | string[]
   booleanAnswer?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   textAnswer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type AnswerUncheckedUpdateManyWithoutQuestionInput = {
@@ -578,7 +554,6 @@ export type AnswerUncheckedUpdateManyWithoutQuestionInput = {
   selectedChoiceIds?: Prisma.AnswerUpdateselectedChoiceIdsInput | string[]
   booleanAnswer?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   textAnswer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type AnswerCreateManyAttemptInput = {
@@ -587,7 +562,6 @@ export type AnswerCreateManyAttemptInput = {
   selectedChoiceIds?: Prisma.AnswerCreateselectedChoiceIdsInput | string[]
   booleanAnswer?: boolean | null
   textAnswer?: string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type AnswerUpdateWithoutAttemptInput = {
@@ -595,7 +569,6 @@ export type AnswerUpdateWithoutAttemptInput = {
   selectedChoiceIds?: Prisma.AnswerUpdateselectedChoiceIdsInput | string[]
   booleanAnswer?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   textAnswer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   question?: Prisma.QuestionUpdateOneRequiredWithoutAnswersNestedInput
 }
 
@@ -605,7 +578,6 @@ export type AnswerUncheckedUpdateWithoutAttemptInput = {
   selectedChoiceIds?: Prisma.AnswerUpdateselectedChoiceIdsInput | string[]
   booleanAnswer?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   textAnswer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 export type AnswerUncheckedUpdateManyWithoutAttemptInput = {
@@ -614,7 +586,6 @@ export type AnswerUncheckedUpdateManyWithoutAttemptInput = {
   selectedChoiceIds?: Prisma.AnswerUpdateselectedChoiceIdsInput | string[]
   booleanAnswer?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   textAnswer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  matchingAnswer?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
 }
 
 
@@ -626,7 +597,6 @@ export type AnswerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   selectedChoiceIds?: boolean
   booleanAnswer?: boolean
   textAnswer?: boolean
-  matchingAnswer?: boolean
   attempt?: boolean | Prisma.AttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["answer"]>
@@ -638,7 +608,6 @@ export type AnswerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   selectedChoiceIds?: boolean
   booleanAnswer?: boolean
   textAnswer?: boolean
-  matchingAnswer?: boolean
   attempt?: boolean | Prisma.AttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["answer"]>
@@ -650,7 +619,6 @@ export type AnswerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   selectedChoiceIds?: boolean
   booleanAnswer?: boolean
   textAnswer?: boolean
-  matchingAnswer?: boolean
   attempt?: boolean | Prisma.AttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["answer"]>
@@ -662,10 +630,9 @@ export type AnswerSelectScalar = {
   selectedChoiceIds?: boolean
   booleanAnswer?: boolean
   textAnswer?: boolean
-  matchingAnswer?: boolean
 }
 
-export type AnswerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "questionId" | "selectedChoiceIds" | "booleanAnswer" | "textAnswer" | "matchingAnswer", ExtArgs["result"]["answer"]>
+export type AnswerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "attemptId" | "questionId" | "selectedChoiceIds" | "booleanAnswer" | "textAnswer", ExtArgs["result"]["answer"]>
 export type AnswerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   attempt?: boolean | Prisma.AttemptDefaultArgs<ExtArgs>
   question?: boolean | Prisma.QuestionDefaultArgs<ExtArgs>
@@ -692,7 +659,6 @@ export type $AnswerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     selectedChoiceIds: string[]
     booleanAnswer: boolean | null
     textAnswer: string | null
-    matchingAnswer: runtime.JsonValue | null
   }, ExtArgs["result"]["answer"]>
   composites: {}
 }
@@ -1124,7 +1090,6 @@ export interface AnswerFieldRefs {
   readonly selectedChoiceIds: Prisma.FieldRef<"Answer", 'String[]'>
   readonly booleanAnswer: Prisma.FieldRef<"Answer", 'Boolean'>
   readonly textAnswer: Prisma.FieldRef<"Answer", 'String'>
-  readonly matchingAnswer: Prisma.FieldRef<"Answer", 'Json'>
 }
     
 
