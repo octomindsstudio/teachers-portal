@@ -1,21 +1,15 @@
 "use client";
 
-import { useState } from "react";
 import { useSidebarResize } from "@/hooks/useSidebarResizer";
 import { motion } from "framer-motion";
 import {
   LayoutDashboard,
   PlusCircle,
-  FileText,
-  Settings,
   LogOut,
-  HelpCircle,
   Tags,
 } from "lucide-react";
-import { authClient } from "@/lib/auth-client";
 import { usePathname } from "next/navigation";
 import {
-  Avatar,
   Button,
   Dropdown,
   DropdownTrigger,

@@ -215,7 +215,7 @@ export const ActiveExamView: React.FC<ActiveExamViewProps> = ({
           <header className="h-16 flex items-center justify-between px-6 bg-white/80 backdrop-blur-xl border-b border-white/20 z-10 sticky top-0">
             <div className="flex items-center gap-4 lg:hidden">
               {/* Mobile Menu Trigger would go here */}
-              <span className="font-bold text-default-900 truncate max-w-[200px]">
+              <span className="font-bold text-default-900 truncate max-w-50">
                 {exam.title}
               </span>
             </div>
@@ -259,7 +259,9 @@ export const ActiveExamView: React.FC<ActiveExamViewProps> = ({
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.05 }}
-                        ref={(el) => (questionRefs.current[q.id] = el)}
+                        ref={(el) => {
+                          questionRefs.current[q.id] = el;
+                        }}
                         className="scroll-mt-32"
                       >
                         <div className="flex gap-6 group">
